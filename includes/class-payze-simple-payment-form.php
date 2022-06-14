@@ -150,6 +150,12 @@ class Payze_Simple_Payment_Form {
 
 
 		/**
+		 * The class responsible for processing Payze API.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-v1-api.php';
+
+
+		/**
 		 * The class responsible for sanitizing user input
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-sanitize.php';
