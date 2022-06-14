@@ -1,3 +1,6 @@
+@link = http://slushman.com
+
+
 === Plugin Name ===
 Contributors: (this should be a list of wordpress.org userid's)
 Donate link: http://example.com/
@@ -45,7 +48,7 @@ e.g.
 
 1. Upload `payze-simple-payment-form.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Place `<?php do_action('Payze_Simple_Payment_Form_hook'); ?>` in your templates
 
 == Frequently Asked Questions ==
 

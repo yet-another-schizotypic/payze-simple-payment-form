@@ -2,3 +2,139 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+h1 {
+    font-family: Impact, sans-serif;
+    color: #CE5937;
+}
+
+
+
+input.psfp-input-nickname, input.psfp-input-amount-to-pay {
+    /*Layout*/
+    box-sizing: border-box;
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    margin-top:1%;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    border-radius: .5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat, repeat;
+
+    /*Text*/
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-stretch: 100%;
+    font-style: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+    font-weight: bold;
+    /*Appearance*/
+    color: rgb(16, 20, 35);
+    background-color: rgb(238, 238, 238);
+    border-color: rgb(136, 13, 30);;
+    border-style: solid;
+    border-width: 2px;
+    cursor: text;
+    -webkit-border-image: none;
+    /*Other*/
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    writing-mode: horizontal-tb;
+}
+
+
+
+input.psfp-input-submit-button {
+    /*Layout*/
+    box-sizing: border-box;
+    height: 40px;
+    width: 60%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+
+    /*Text*/
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    font-stretch: 100%;
+    font-style: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+
+    /*Appearance*/
+    color: rgb(16, 20, 35);
+    background-color: rgb(238, 238, 238);
+    border-color: rgb(136, 13, 30);;
+    border-style: solid;
+    border-width: 2px;
+    cursor: pointer;
+    -webkit-border-image: none;
+    /*Other*/
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    writing-mode: horizontal-tb;
+}
+
+input.psfp-input-submit-button:hover {
+    transform: scale(1.1);
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+    font-weight: bold;
+}
+form.pspf-custom-payment-form{
+    /*Layout*/
+    box-sizing: border-box;
+    display: block;
+
+
+    max-width: 100%;
+    min-width: 160px;
+    padding: 10px 22px 8px 13px;
+    width: 643px;
+    /*Text*/
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21px;
+    text-align: left;
+    vertical-align: baseline;
+    /*Appearance*/
+    color: rgb(68, 68, 68);
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: rgb(126, 183, 127);
+    background-image: none;
+    background-origin: padding-box;
+    background-position-x: calc(100% - 11px);
+    background-position-y: 50%;
+    background-size: 10px;
+    border-color: rgb(136, 13, 30);;
+    border-style: solid;
+    border-width: 2px;
+
+    outline: rgb(68, 68, 68) none 0;
+    /*Other*/
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+    border-radius: 8px;
+}
+
+div.psfp-div-payment-systems-logos{
+    text-align: right;
+}
+
+img.psfp-img-payment-system-logo{
+    margin-left: 1%;
+    margin-right: 1%;
+}

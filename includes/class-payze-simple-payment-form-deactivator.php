@@ -3,11 +3,11 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       http://example.com
- * @since      1.0.0
+ * settings
+ * @since 		1.0.0
  *
- * @package    Payze_Simple_Payment_Form
- * @subpackage Payze_Simple_Payment_Form/includes
+ * @package 	Payze_Simple_Payment_Form
+ * @subpackage 	Payze_Simple_Payment_Form/includes
  */
 
 /**
@@ -15,10 +15,10 @@
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  *
- * @since      1.0.0
- * @package    Payze_Simple_Payment_Form
- * @subpackage Payze_Simple_Payment_Form/includes
- * @author     Your Name <email@example.com>
+ * @since 		1.0.0
+ * @package 	Payze_Simple_Payment_Form
+ * @subpackage 	Payze_Simple_Payment_Form/includes
+ * 
  */
 class Payze_Simple_Payment_Form_Deactivator {
 
@@ -27,7 +27,7 @@ class Payze_Simple_Payment_Form_Deactivator {
 	 *
 	 * Long Description.
 	 *
-	 * @since    1.0.0
+	 * @since 		1.0.0
 	 */
 	public static function deactivate() {
 
