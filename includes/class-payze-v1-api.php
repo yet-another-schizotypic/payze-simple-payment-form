@@ -30,7 +30,7 @@ class Payze_V1_API {
 
 
 	function __construct( array $settings_context ) {
-
+		$default_transaction_status = "UNKNOWN";
 		if ( null !== $settings_context['pspf-operating-mode'] ) {
 			if ( $settings_context['pspf-operating-mode'] === 'DEMO-GEL' ) {
 				$this->api_key_to_use    = $settings_context['pspf-demo-key'];
@@ -45,7 +45,7 @@ class Payze_V1_API {
 			$this->current_page_url     = home_url( add_query_arg( array(), $wp->request ) );
 			$this->webhook_url          = isset( $settings_context['pspf-webhook-url'] ) ? home_url( add_query_arg( array(), $wp->request ) ) : $settings_context['pspf-webhook-url'];
 			$this->payze_api_url        = "https://payze.io/api/v1";
-			$default_transaction_status = "UNKNOWN";
+
 		} else {
 			$this->show_message_redirect_and_die( 'FAILURE', 'Unknown or unset OPERATING_MODE', 'This a bug, please contact technical support' );
 		}

@@ -78,6 +78,44 @@ class Payze_Simple_Payment_Form_Admin {
 	}
 
 	/**
+	 * Adds links to the plugin links row
+	 *
+	 * @since 		1.0.0
+	 * @param 		array 		$links 		The current array of row links
+	 * @param 		string 		$file 		The name of the file
+	 * @return 		array 					The modified array of row links
+	 */
+	public function link_row( $links, $file ) {
+
+		if ( NOW_HIRING_FILE === $file ) {
+
+			$links[] = '<a href="http://bootandpencil.com/lobanov">Twitter</a>';
+
+		}
+
+		return $links;
+
+	} // link_row()
+
+
+
+	/**
+	 * Adds a link to the plugin settings page
+	 *
+	 * @since 		1.0.0
+	 * @param 		array 		$links 		The current array of links
+	 * @return 		array 					The modified array of links
+	 */
+	public function link_settings( $links ) {
+
+		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=pspf_payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
+
+		return $links;
+
+	}
+
+
+	/**
 	 * Creates a new custom post type
 	 * @link       http://slushman.com
 	 * @since    0.0.1
@@ -221,7 +259,6 @@ class Payze_Simple_Payment_Form_Admin {
 	 *
 	 * @param array $args The arguments for the field
 	 *
-	 * @return    string                        The HTML field
 	 */
 	public function field_text( $args ) {
 

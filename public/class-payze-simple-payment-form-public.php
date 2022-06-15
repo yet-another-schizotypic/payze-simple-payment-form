@@ -118,7 +118,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * Registers [pspf_custom_payment_form] shortcode
 	 *
-	 * @return [type] [description]
+	 *
 	 */
 	public function register_shortcodes() {
 
