@@ -1,4 +1,17 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * This code was made by copy-paste and some monkey typing.
+ *
+ * The most significant parts are taken from the «Now Hiring» plugin by slushman
+ *  (https://github.com/slushman/now-hiring), the «WordPress Boilerplate» by
+ *  DevinVinson (https://github.com/DevinVinson/WordPress-Plugin-Boilerplate)
+ *  and the «Authorize.net - Simple Donations» by Aman Verma (https://twitter.com/amanverma217).
+ *
+ * License: GPLv2 or later.
+ *
+ *
+ */
 
 /**
  * The dashboard-specific functionality of the plugin.
@@ -191,45 +204,6 @@ class Payze_Simple_Payment_Form_Admin {
 
 	} // get_options_list()
 
-// --Commented out by Inspection START (15.06.2022, 18:02):
-//	/**
-//	 * Adds links to the plugin links row
-//	 *
-//	 * @since 		0.0.1
-//	 * @param 		array 		$links 		The current array of row links
-//	 * @param 		string 		$file 		The name of the file
-//	 * @return 		array 					The modified array of row links
-//	 */
-//	public function link_row( $links, $file ) {
-//
-//		if ( PAYZE_SIMPLE_PAYMENT_FORM_FILE === $file ) {
-//			//TODO: проверить, что ссылка ведёт куда надо
-//			$links[] = '<a href="https://bootandpencil.com/lobanov">Twitter</a>';
-//
-//		}
-//
-//		return $links;
-//
-//	} // link_row()
-// --Commented out by Inspection STOP (15.06.2022, 18:02)
-
-
-// --Commented out by Inspection START (15.06.2022, 18:02):
-//	/**
-//	 * Adds a link to the plugin settings page
-//	 *
-//	 * @since 		0.0.1
-//	 * @param 		array 		$links 		The current array of links
-//	 * @return 		array 					The modified array of links
-//	 */
-//	public function link_settings( $links ) {
-//
-//		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=pspf_payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
-//
-//		return $links;
-//
-//	} // link_settings()
-// --Commented out by Inspection STOP (15.06.2022, 18:02)
 
 
 	/**

@@ -1,4 +1,17 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * This code was made by copy-paste and some monkey typing.
+ *
+ * The most significant parts are taken from the «Now Hiring» plugin by slushman
+ *  (https://github.com/slushman/now-hiring), the «WordPress Boilerplate» by
+ *  DevinVinson (https://github.com/DevinVinson/WordPress-Plugin-Boilerplate)
+ *  and the «Authorize.net - Simple Donations» by Aman Verma (https://twitter.com/amanverma217).
+ *
+ * License: GPLv2 or later.
+ *
+ *
+ */
 
 /**
  * The plugin bootstrap file
@@ -27,8 +40,7 @@
  */
 
 
-//TODO: Перед релизом настроить адекватную переадресацию, чтобы реально вела на страничку с плагином
-//TODO: https://bootandpencil.com/lobanov — проверить, чтобы работало
+
 //TODO: адекватное объявление о том, на базе чего / авторов всё это сделано
 
 // If this file is called directly, abort.
@@ -37,6 +49,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Used for referring to the plugin file or basename
+
 if ( ! defined( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE' ) ) {
 	define( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE', plugin_basename( __FILE__ ) );
 }
@@ -51,13 +64,9 @@ register_deactivation_hook( __FILE__, 'deactivate_Payze_Simple_Payment_Form' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-payze-simple-payment-form.php';
 
 /**
- * Begins execution of the plugin.
+ * @return void
+ * @author
  *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since 		0.0.1
  */
 function run_Payze_Simple_Payment_Form() {
 

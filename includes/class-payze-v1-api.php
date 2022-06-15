@@ -1,4 +1,17 @@
 <?php
+/*
+ * Copyright (c) 2022.
+ * This code was made by copy-paste and some monkey typing.
+ *
+ * The most significant parts are taken from the «Now Hiring» plugin by slushman
+ *  (https://github.com/slushman/now-hiring), the «WordPress Boilerplate» by
+ *  DevinVinson (https://github.com/DevinVinson/WordPress-Plugin-Boilerplate)
+ *  and the «Authorize.net - Simple Donations» by Aman Verma (https://twitter.com/amanverma217).
+ *
+ * License: GPLv2 or later.
+ *
+ *
+ */
 
 class Payze_V1_API
 {
@@ -43,6 +56,9 @@ class Payze_V1_API
   							margin-left: auto;
   							margin-right: auto;
 						}
+						h1 {
+ 							 text-align: center;
+						}
 					</style>';
 
 		switch (strtoupper($category)){
@@ -58,11 +74,8 @@ class Payze_V1_API
 				$basic_description = 'Error: <b>' . $short_message . '</b>. <br/>';
 				$details_description = 'Details: <b>' . $details . '</b> <br/>';
 				break;
-			case 'INFO':
-				//TODO допилилить или убрать
-				$icon = '/wp-content/plugins/payze-simple-payment-form/public/img/info-icon.png';
-				break;
 			default:
+				wp_die("FATAL ERROR: incorrect <b>show_message_redirect_and_die</b> call.");
 				break;
 		}
 
@@ -150,10 +163,6 @@ class Payze_V1_API
 
 		$transactionUrl = json_decode( $payze_raw_response )->response->transactionUrl;
 		if ( isset( $transactionUrl ) ) {
-
-			//TODO: куда-то сюда проверку прошла оплата или нет, наверное, вебхуком
-			//TODO: дефолтный заголовок до того, как банк редиректнет, что-то вроде: Unчего-то-там
-			//TODO: ограничить на фронте и в бэке длину никнейма
 			$post_title = "Payer's nickname: ". sanitize_text_field($payer_nickname). '.  Amount: '. sanitize_text_field($payment_amount) . ". " . $this->currency . ". Status: " . $this->default_transaction_status;
 			$post = array(
 				'post_type'    => 'pspf_payment',
@@ -190,8 +199,6 @@ class Payze_V1_API
 	}
 
 	private function process_getTransactionInfo_query_to_payze($transaction_id){
-		//TODO: счётчик количества рефрешей / повторов в заголовке поста
-		//TODO: и картинку с символикой успеха / неуспеха транзакции
 		$payze_responce = $this->process_post_query_to_payze('getTransactionInfo', array('transaction_id' => $transaction_id));
 		$payze_raw_response = $payze_responce['payze_raw_response'];
 		$httpCode = $payze_responce['httpCode'];
@@ -230,7 +237,6 @@ class Payze_V1_API
 			$payment_record_new_title = substr($payment_record->posts[0]->post_title, 0,$position - strlen($payment_record->posts[0]->post_title));
 
 			if (strcasecmp($transaction_status, 'Committed') === 0){
-				//TODO: инфу о том, что всё хорошо, записываем в пост payment
 				$payment_record_new_title .= " Status: " .  $transaction_status . " — Successfull payment";
 				$status = 'SUCCESS';
 			} else {
@@ -247,7 +253,7 @@ class Payze_V1_API
 			add_post_meta($payment_record_post_id, 'payze_rejection_reason', $rejection_reason, true);
 
 			$this->show_message_redirect_and_die($status, 'payment status is ' . $transaction_status,
-						isset($rejection_reason) ? $rejection_reason : "OK");
+						isset($rejection_reason) ? $rejection_reason : "Thank you for your payment!");
 
 
 		} else {
@@ -258,4 +264,3 @@ class Payze_V1_API
 
 }
 
-//TODO: отцентровать заголовок и текст под картинкой с сообщением об ошибке
