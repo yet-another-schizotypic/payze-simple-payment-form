@@ -144,7 +144,7 @@ class Payze_Simple_Payment_Form {
 
 
 	/**
-	 * Register all of the hooks related to the dashboard functionality
+	 * Register all the hooks related to the dashboard functionality
 	 * of the plugin.
 	 *
 	 * @since 		0.0.1
@@ -154,8 +154,8 @@ class Payze_Simple_Payment_Form {
 
 		$plugin_admin = new Payze_Simple_Payment_Form_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+	//	$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+	//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_admin, 'new_cpt_job' );
 		$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
 		$this->loader->add_filter( 'plugin_action_links_' . PAYZE_SIMPLE_PAYMENT_FORM_FILE, $plugin_admin, 'link_settings' );
@@ -170,7 +170,7 @@ class Payze_Simple_Payment_Form {
 	} // define_admin_hooks()
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
+	 * Register all the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
 	 * @since 		0.0.1
@@ -181,7 +181,7 @@ class Payze_Simple_Payment_Form {
 		$plugin_public = new Payze_Simple_Payment_Form_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), TRUE );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', $this->get_version(), TRUE );
+		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', $this->get_version(), TRUE );
 		$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
 
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
@@ -200,7 +200,7 @@ class Payze_Simple_Payment_Form {
 	} // define_public_hooks()
 
 	/**
-	 * Register all of the hooks related to the templates.
+	 * Register all the hooks related to the templates.
 	 *
 	 * @since    0.0.1
 	 * @access   private
@@ -222,7 +222,7 @@ class Payze_Simple_Payment_Form {
 	// define_metabox_hooks()
 
 	/**
-	 * Run the loader to execute all of the hooks with WordPress.
+	 * Run the loader to execute all the hooks with WordPress.
 	 *
 	 * @since 		0.0.1
 	 */
@@ -260,38 +260,4 @@ class Payze_Simple_Payment_Form {
 	public function get_version() {
 		return $this->version;
 	}
-
-
-
-
-	// Option 2
-
-
-	/**
-	 * Flushes widget cache
-	 *
-	 * @since 		0.0.1
-	 * @access 		public
-	 * @param 		int 		$post_id 		The post ID
-	 * @return 		void
-	 */
-	public function flush_widget_cache( $post_id ) {
-
-
-	}
-
-
-
-	/**
-	 * Registers widgets with WordPress
-	 *
-	 * @since 		0.0.1
-	 * @access 		public
-	 */
-	public function widgets_init() {
-
-
-
-	} // widgets_init()
-
 }

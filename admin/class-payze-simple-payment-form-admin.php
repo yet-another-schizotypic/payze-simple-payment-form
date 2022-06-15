@@ -53,8 +53,8 @@ class Payze_Simple_Payment_Form_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since 		0.0.1
-	 * @param 		string 			$Payze_Simple_Payment_Form 		The name of this plugin.
-	 * @param 		string 			$version 			The version of this plugin.
+	 * @plugin_name 		string 			$Payze_Simple_Payment_Form 		The name of this plugin.
+	 * @version 		string 			$version 			The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -147,47 +147,14 @@ class Payze_Simple_Payment_Form_Admin {
 // --Commented out by Inspection STOP (15.06.2022, 18:02)
 
 
-	/**
-	 * Register the stylesheets for the Dashboard.
-	 *
-	 * @since 		0.0.1
-	 */
-	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/payze-simple-payment-form-admin.css', array(), $this->version, 'all' );
-
-	} // enqueue_styles()
-
-	/**
-	 * Register the JavaScript for the dashboard.
-	 *
-	 * @since 		0.0.1
-	 */
-	public function enqueue_scripts( $hook_suffix ) {
-
-		global $post_type;
-
-		$screen = get_current_screen();
-
-		if ( 'payment' === $post_type || $screen->id === $hook_suffix ) {
-
-
-			$localize['repeatertitle'] = __( 'File Name', 'payze-simple-payment-form' );
-
-			wp_localize_script( 'payze-simple-payment-form', 'nhdata', $localize );
-
-
-		}
-
-	} // enqueue_scripts()
 
 	/**
 	 * Creates a select field
 	 *
-	 * Note: label is blank since its created in the Settings API
+	 * Note: label is blank since it's created in the Settings API
 	 *
-	 * @param 	array 		$args 			The arguments for the field
-	 * @return 	string 						The HTML field
+
 	 */
 	public function field_select( $args ) {
 

@@ -53,8 +53,8 @@ class Payze_Simple_Payment_Form_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since 		0.0.1
-	 * @param 		string 			$Payze_Simple_Payment_Form 		The name of the plugin.
-	 * @param 		string 			$version 			The version of this plugin.
+	 * @plugin_name 		string 			$Payze_Simple_Payment_Form 		The name of the plugin.
+	 * @version		string 			$version 			The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -78,17 +78,7 @@ class Payze_Simple_Payment_Form_Public {
 
 	}
 
-	/**
-	 * Register the stylesheets for the public-facing side of the site.
-	 *
-	 * @since 		0.0.1
-	 */
-	//TODO: не удалять
-	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/payze-simple-payment-form-public.js', array( 'jquery' ), $this->version, true );
-
-	}
 
     /**
      * Creates payment form HTML output
