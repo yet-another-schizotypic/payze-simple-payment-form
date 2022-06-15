@@ -43,6 +43,21 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+function deactivate_Payze_Simple_Payment_Form() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-payze-simple-payment-form-deactivator.php';
+	Payze_Simple_Payment_Form_Deactivator::deactivate();
+}
+
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-payze-simple-payment-form-activator.php
+ */
+function activate_Payze_Simple_Payment_Form() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-payze-simple-payment-form-activator.php';
+	Payze_Simple_Payment_Form_Activator::activate();
+}
+
+
 // Used for referring to the plugin file or basename
 if ( ! defined( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE' ) ) {
 	define( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE', plugin_basename( __FILE__ ) );
