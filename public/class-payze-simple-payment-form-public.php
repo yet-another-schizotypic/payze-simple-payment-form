@@ -136,13 +136,15 @@ class Payze_Simple_Payment_Form_Public {
 	public function psfp_process_payze_payment_form_actions($atts = array() ) {
 
 		//TODO: написать логику, опции отсюда доступны: $this->options
-		if (isset($_GET['payment_transaction_id'])){
 
-		}
 		if ( isset( $_POST['submitted'] )) {
 			$payze_api = new Payze_V1_API($this->options);
 			$res = $payze_api->do_user_redirect_to_bank_payment_form($_POST['nickName'], $_POST['amountToPay']);
 			//$this->psfp_process_payment();
+		}
+		if (isset($_GET['payment_transaction_id'])) {
+			$payze_api = new Payze_V1_API($this->options);
+			$res = $payze_api->process_form_after_bank_redirection($_GET['payment_transaction_id']);
 		}
         return $this->psfp_display_payment_form($atts);
 

@@ -65,21 +65,7 @@ class Payze_Simple_Payment_Form_Admin {
 
 	}
 
-	/**
-     * Adds notices for the admin to display.
-     * Saves them in a temporary plugin option.
-     * This method is called on plugin activation, so its needs to be static.
-     */
-    public static function add_admin_notices() {
-
-    	$notices 	= get_option( 'payze_simple_payment_form_deferred_admin_notices', array() );
-  		//$notices[] 	= array( 'class' => 'updated', 'notice' => esc_html__( 'Now Hiring: Custom Activation Message', 'payze-simple-payment-form' ) );
-  		//$notices[] 	= array( 'class' => 'error', 'notice' => esc_html__( 'Now Hiring: Problem Activation Message', 'payze-simple-payment-form' ) );
-
-  		apply_filters( 'payze_simple_payment_form_admin_notices', $notices );
-  		update_option( 'payze_simple_payment_form_deferred_admin_notices', $notices );
-
-    } // add_admin_notices
+	// add_admin_notices
 
 	/**
 	 * Adds a settings page link to a menu

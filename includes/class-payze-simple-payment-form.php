@@ -119,7 +119,7 @@ class Payze_Simple_Payment_Form {
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-i18n.php';
+		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the Dashboard.
@@ -176,10 +176,7 @@ class Payze_Simple_Payment_Form {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Payze_Simple_Payment_Form_i18n();
-		$plugin_i18n->set_domain( $this->get_plugin_name() );
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
