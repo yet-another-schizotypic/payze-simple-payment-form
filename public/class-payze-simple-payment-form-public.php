@@ -16,9 +16,8 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * settings
  * @since        0.0.1
- *
+ * @link       http://slushman.com
  * @package    Payze_Simple_Payment_Form
  * @subpackage    Payze_Simple_Payment_Form/public
  */
@@ -26,23 +25,13 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the dashboard-specific stylesheet and JavaScript.
+ * Defines the plugin name, version, and hooks
  *
  * @package    Payze_Simple_Payment_Form
  * @subpackage    Payze_Simple_Payment_Form/public
  *
  */
 class Payze_Simple_Payment_Form_Public {
-
-	/**
-	 * The plugin options.
-	 *
-	 * @since        0.0.1
-	 * @access        private
-	 * @var        string $options The plugin options.
-	 */
-//*****	private $options;
 
 	/**
 	 * The ID of this plugin.
@@ -73,7 +62,6 @@ class Payze_Simple_Payment_Form_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
 		$this->set_options();
 
 	}
@@ -84,101 +72,51 @@ class Payze_Simple_Payment_Form_Public {
 	 * @since        0.0.1
 	 */
 
-	//TODO: не удалять
-/**
-	 * Sets the class variable $options
-	 */
 	private function set_options() {
-
 		$this->options = get_option( $this->plugin_name . '-options' );
-
 	}
 
 
 	public function enqueue_styles() {
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/payze-simple-payment-form-public.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
-	 * Processes shortcode pspf_custom_payment_form
+	 * Processes shortcode pspf_custom_payment_form. Uses _GET or _POST queries info to choose actions to perform (
+	 * process query to Payze or simple draw the payment form where the shortcode placed)
+	 *
 	 *
 	 * @param array $atts The attributes from the shortcode
 	 *
 	 * @return    mixed    $output        Output of the buffer
-	 * @uses    get_layout
-	 *
-	 * @uses    get_option
 	 */
 	public function pspf_process_payze_payment_form_actions( $atts = array() ) {
 
 		if ( isset( $_POST['submitted'] ) ) {
 			$payze_api = new Payze_V1_API( $this->options );
-			$res       = $payze_api->do_user_redirect_to_bank_payment_form( $_POST['nickName'], $_POST['amountToPay'] );
-			//$this->pspf_process_payment();
+			$payze_api->do_user_redirect_to_bank_payment_form( $_POST['nickName'], $_POST['amountToPay'] );
+
 		}
 		if ( isset( $_GET['payment_transaction_id'] ) ) {
 			$payze_api = new Payze_V1_API( $this->options );
-			$res       = $payze_api->process_form_after_bank_redirection( $_GET['payment_transaction_id'] );
+			$payze_api->process_form_after_bank_redirection( $_GET['payment_transaction_id'] );
 		}
 
 		return $this->pspf_display_payment_form( $atts );
 
-	} // list_openings()
+	}
 
-		/**
+	/**
 	 * Creates payment form HTML output
-	 *
-	 * @param $atts
-	 *
-	 * @return string
 	 */
-
 	public function pspf_display_payment_form( $atts = array() ) {
-		ob_start();
+		$payment_form_template = plugin_dir_path( __DIR__ ) . 'includes/partials/' . $this->plugin_name . '-payment-form.php';
 
-		$tmp = plugin_dir_path( __DIR__ ) . 'includes/partials/' . $this->plugin_name . '-payment-form.php';
-		echo $tmp;
-
-		$out = require( $tmp );
-
-
-		extract( shortcode_atts( array(
-			'el_class' => '',
-			'el_id'    => '',
-		), $atts ) );
-
-		ob_end_clean();
-
-		return $out;
-	} // register_shortcodes()
+		return require( $payment_form_template );
+	}
 
 	/**
-	 * Adds a default single view template for a job opening
-	 *
-	 * @param string $template The name of the template
-	 *
-	 * @return    mixed                        The single template
-	 */
-	/*	public function single_cpt_template( $template ) {
-
-			global $post;
-
-			$return = $template;
-
-			if ( $post->post_type == 'pspf_payment' ) {
-
-				$return = payze_simple_payment_form_get_template( 'single-job' );
-
-			}
-
-			return $return;
-
-		} // single_cpt_template() */
-
-	/**
-	 * Registers all shortcodes at once
+	 * Registers [pspf_custom_payment_form] shortcode
 	 *
 	 * @return [type] [description]
 	 */
@@ -188,7 +126,5 @@ class Payze_Simple_Payment_Form_Public {
 
 		return true;
 
-	} // set_options()
-
-
-} // class
+	}
+}

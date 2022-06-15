@@ -17,7 +17,7 @@
  * Sanitize anything
  *
  * @since      0.0.1
- *
+ * @link       http://slushman.com
  * @package    Payze Simple Payment Form
  * @subpackage Payze Simple Payment Form/includes
  */
@@ -105,10 +105,6 @@ class Payze_Simple_Payment_Form_Sanitize {
 		return $sanitized;
 
 	} // clean()
-
-	// validate_date()
-
-
 
 	/**
 	 * Performs general cleaning functions on data

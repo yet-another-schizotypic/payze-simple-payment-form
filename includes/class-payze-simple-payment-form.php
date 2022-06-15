@@ -19,7 +19,6 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the dashboard.
  *
- * settings
  * @since 		0.0.1
  *
  * @package 	Payze_Simple_Payment_Form
@@ -29,7 +28,7 @@
 /**
  * The core plugin class.
  *
- * This is used to define internationalization, dashboard-specific hooks, and
+ * This is used to define dashboard-specific hooks, and
  * public-facing site hooks.
  *
  * Also maintains the unique identifier of this plugin as well as the current
@@ -38,7 +37,7 @@
  * @since 		0.0.1
  * @package 	Payze_Simple_Payment_Form
  * @subpackage 	Payze_Simple_Payment_Form/includes
- * 
+ *
  */
 class Payze_Simple_Payment_Form {
 
@@ -68,7 +67,6 @@ class Payze_Simple_Payment_Form {
 	 * @access   private
 	 * @var      Payze_Simple_Payment_Form_Sanitize    $sanitizer    Sanitizes data
 	 */
-//****	private $sanitizer;
 
 	/**
 	 * The current version of the plugin.
@@ -104,7 +102,6 @@ class Payze_Simple_Payment_Form {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Payze_Simple_Payment_Form_Loader. Orchestrates the hooks of the plugin.
-	 * - Payze_Simple_Payment_Form_i18n. Defines internationalization functionality.
 	 * - Payze_Simple_Payment_Form_Admin. Defines all hooks for the dashboard.
 	 * - Payze_Simple_Payment_Form_Public. Defines all hooks for the public side of the site.
 	 *
@@ -127,7 +124,6 @@ class Payze_Simple_Payment_Form {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-payze-simple-payment-form-admin.php';
 
-
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
@@ -143,7 +139,6 @@ class Payze_Simple_Payment_Form {
 		 * The class responsible for processing Payze API.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-v1-api.php';
-
 
 		/**
 		 * The class responsible for sanitizing user input
@@ -167,20 +162,13 @@ class Payze_Simple_Payment_Form {
 
 		$plugin_admin = new Payze_Simple_Payment_Form_Admin( $this->get_plugin_name(), $this->get_version() );
 
-	//	$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-	//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_admin, 'new_pspf_payment' );
-	//	$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
 		$this->loader->add_filter( 'plugin_action_links_' . PAYZE_SIMPLE_PAYMENT_FORM_FILE, $plugin_admin, 'link_settings' );
-		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'link_row', 10, 2 );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_sections' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_fields' );
-	//	$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notices' );
-	//	$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_notices_init' );
-
-	} // define_admin_hooks()
+	}
 
 	/**
 	 * Register all the hooks related to the public-facing functionality
@@ -192,11 +180,8 @@ class Payze_Simple_Payment_Form {
 	private function define_public_hooks() {
 
 		$plugin_public = new Payze_Simple_Payment_Form_Public( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), TRUE );
-		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts', $this->get_version(), TRUE );
 		$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
-
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
 		/**
@@ -208,9 +193,7 @@ class Payze_Simple_Payment_Form {
 		 */
 		$this->loader->add_action( 'pspf_custom_payment_form', $plugin_public, 'list_openings' );
 
-
-
-	} // define_public_hooks()
+	}
 
 	/**
 	 * Register all the hooks related to the templates.

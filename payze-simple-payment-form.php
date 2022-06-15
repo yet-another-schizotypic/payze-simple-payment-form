@@ -22,7 +22,7 @@
  * that starts the plugin.
  *
  * @author 				Vitalii Lobanov
- * @link 				http://slushman.com
+ * @link 				https://bootandpencil.com/lobanov
  * @since 				0.0.1
  * @package 			Payze_Simple_Payment_Form
  *
@@ -36,12 +36,7 @@
  * License: 			GPL-2.0+
  * License URI: 		http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: 		payze-simple-payment-form
- * Domain Path: 		/languages
  */
-
-
-
-//TODO: адекватное объявление о том, на базе чего / авторов всё это сделано
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -49,7 +44,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Used for referring to the plugin file or basename
-
 if ( ! defined( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE' ) ) {
 	define( 'PAYZE_SIMPLE_PAYMENT_FORM_FILE', plugin_basename( __FILE__ ) );
 }

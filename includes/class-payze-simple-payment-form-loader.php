@@ -77,6 +77,7 @@ class Payze_Simple_Payment_Form_Loader {
 	/**
 	 * Add a new action to the collection to be registered with WordPress.
 	 *
+	 * @link       http://slushman.com
 	 * @since 		0.0.1
 	 * @param 		string 					$hook 				The name of the WordPress action that is being registered.
 	 * @param 		object 					$component 			A reference to the instance of the object on which the action is defined.
@@ -91,6 +92,7 @@ class Payze_Simple_Payment_Form_Loader {
 	/**
 	 * Add a new filter to the collection to be registered with WordPress.
 	 *
+	 * @link       http://slushman.com
 	 * @since 		0.0.1
 	 * @param 		string 					$hook 				The name of the WordPress filter that is being registered.
 	 * @param 		object 					$component 			A reference to the instance of the object on which the filter is defined.

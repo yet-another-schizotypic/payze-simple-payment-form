@@ -16,11 +16,6 @@
 /**
  * Provides the markup for payment form
  *
- * 
- * @since      0.0.1
- *
- * @package    Payze_Simple_Payment_Form
- * @subpackage Payze_Simple_Payment_Form/includes/partials
  */
 
 $payment_form_html = '<form id="pspf-custom-payment-form" class="pspf-custom-payment-form" action="" method="post">
