@@ -33,23 +33,7 @@ class Payze_Simple_Payment_Form_Activator {
 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-payze-simple-payment-form-admin.php';
 
-/*		//!!**Payze_Simple_Payment_Form_Admin::new_cpt_job();
-		//!!**Payze_Simple_Payment_Form_Admin::new_taxonomy_type();
-
-		flush_rewrite_rules();
-
-		$opts 		= array();
-		$options 	= Payze_Simple_Payment_Form_Admin::get_options_list();
-
-		foreach ( $options as $option ) {
-
-			$opts[ $option[0] ] = $option[2];
-
-		}
-
-		update_option( 'payze-simple-payment-form-options', $opts );
-
-		Payze_Simple_Payment_Form_Admin::add_admin_notices();*/
+		//No need for such a simple plugin without maintenance.
 
 	} // activate()
 } // class
