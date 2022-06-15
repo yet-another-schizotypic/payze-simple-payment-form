@@ -19,10 +19,10 @@
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the dashboard.
  *
- * @since 		0.0.1
+ * @since        0.0.1
  *
- * @package 	Payze_Simple_Payment_Form
- * @subpackage 	Payze_Simple_Payment_Form/includes
+ * @package    Payze_Simple_Payment_Form
+ * @subpackage    Payze_Simple_Payment_Form/includes
  */
 
 /**
@@ -34,9 +34,9 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since 		0.0.1
- * @package 	Payze_Simple_Payment_Form
- * @subpackage 	Payze_Simple_Payment_Form/includes
+ * @since        0.0.1
+ * @package    Payze_Simple_Payment_Form
+ * @subpackage    Payze_Simple_Payment_Form/includes
  *
  */
 class Payze_Simple_Payment_Form {
@@ -45,18 +45,18 @@ class Payze_Simple_Payment_Form {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since 		0.0.1
-	 * @access 		protected
-	 * @var 		Payze_Simple_Payment_Form_Loader 		$loader 		Maintains and registers all hooks for the plugin.
+	 * @since        0.0.1
+	 * @access        protected
+	 * @var        Payze_Simple_Payment_Form_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since 		0.0.1
-	 * @access 		protected
-	 * @var 		string 			$plugin_name 		The string used to uniquely identify this plugin.
+	 * @since        0.0.1
+	 * @access        protected
+	 * @var        string $plugin_name The string used to uniquely identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -65,15 +65,15 @@ class Payze_Simple_Payment_Form {
 	 *
 	 * @since    0.0.1
 	 * @access   private
-	 * @var      Payze_Simple_Payment_Form_Sanitize    $sanitizer    Sanitizes data
+	 * @var      Payze_Simple_Payment_Form_Sanitize $sanitizer Sanitizes data
 	 */
 
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since 		0.0.1
-	 * @access 		protected
-	 * @var 		string 			$version 		The current version of the plugin.
+	 * @since        0.0.1
+	 * @access        protected
+	 * @var        string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -84,12 +84,12 @@ class Payze_Simple_Payment_Form {
 	 * Load the dependencies, define the locale, and set the hooks for the Dashboard and
 	 * the public-facing side of the site.
 	 *
-	 * @since 		0.0.1
+	 * @since        0.0.1
 	 */
 	public function __construct() {
 
 		$this->plugin_name = 'payze-simple-payment-form';
-		$this->version = '0.0.1';
+		$this->version     = '0.0.1';
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -108,8 +108,8 @@ class Payze_Simple_Payment_Form {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since 		0.0.1
-	 * @access 		private
+	 * @since        0.0.1
+	 * @access        private
 	 */
 	private function load_dependencies() {
 
@@ -145,7 +145,7 @@ class Payze_Simple_Payment_Form {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-sanitize.php';
 
-		$this->loader = new Payze_Simple_Payment_Form_Loader();
+		$this->loader    = new Payze_Simple_Payment_Form_Loader();
 		$this->sanitizer = new Payze_Simple_Payment_Form_Sanitize();
 
 	}
@@ -155,8 +155,8 @@ class Payze_Simple_Payment_Form {
 	 * Register all the hooks related to the dashboard functionality
 	 * of the plugin.
 	 *
-	 * @since 		0.0.1
-	 * @access 		private
+	 * @since        0.0.1
+	 * @access        private
 	 */
 	private function define_admin_hooks() {
 
@@ -171,16 +171,41 @@ class Payze_Simple_Payment_Form {
 	}
 
 	/**
+	 * The name of the plugin used to uniquely identify it within the context of
+	 * WordPress and to define internationalization functionality.
+	 *
+	 * @return        string                    The name of the plugin.
+	 * @since        0.0.1
+	 */
+	public function get_plugin_name() {
+		return $this->plugin_name;
+	}
+
+		/**
+	 * Retrieve the version number of the plugin.
+	 *
+	 * @return        string                    The version number of the plugin.
+	 * @since        0.0.1
+	 */
+	public function get_version() {
+		return $this->version;
+	} // define_template_hooks()
+
+	// define_shared_hooks()
+
+	// define_metabox_hooks()
+
+	/**
 	 * Register all the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
-	 * @since 		0.0.1
-	 * @access 		private
+	 * @since        0.0.1
+	 * @access        private
 	 */
 	private function define_public_hooks() {
 
 		$plugin_public = new Payze_Simple_Payment_Form_Public( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), TRUE );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), true );
 		$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
@@ -189,13 +214,13 @@ class Payze_Simple_Payment_Form {
 		 *
 		 * do_action( 'payze_simple_payment_form' );
 		 *
-		 * @link 	http://nacin.com/2010/05/18/rethinking-template-tags-in-plugins/
+		 * @link    http://nacin.com/2010/05/18/rethinking-template-tags-in-plugins/
 		 */
 		$this->loader->add_action( 'pspf_custom_payment_form', $plugin_public, 'list_openings' );
 
 	}
 
-	/**
+/**
 	 * Register all the hooks related to the templates.
 	 *
 	 * @since    0.0.1
@@ -211,49 +236,24 @@ class Payze_Simple_Payment_Form {
 		$this->loader->add_action( 'payze-simple-payment-form-single-content', $plugin_templates, 'single_post_title' );
 		$this->loader->add_action( 'payze-simple-payment-form-single-content', $plugin_templates, 'single_post_content', 15 );
 
-	} // define_template_hooks()
-
-	// define_shared_hooks()
-
-	// define_metabox_hooks()
+	}
 
 	/**
 	 * Run the loader to execute all the hooks with WordPress.
 	 *
-	 * @since 		0.0.1
+	 * @since        0.0.1
 	 */
 	public function run() {
 		$this->loader->run();
 	}
 
 	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since 		0.0.1
-	 * @return 		string 					The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since 		0.0.1
-	 * @return 		Payze_Simple_Payment_Form_Loader 		Orchestrates the hooks of the plugin.
+	 * @return        Payze_Simple_Payment_Form_Loader        Orchestrates the hooks of the plugin.
+	 * @since        0.0.1
 	 */
 	public function get_loader() {
 		return $this->loader;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since 		0.0.1
-	 * @return 		string 					The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 }

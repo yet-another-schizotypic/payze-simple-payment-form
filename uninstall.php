@@ -33,9 +33,9 @@
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
  * settings
- * @since 		0.0.1
+ * @since        0.0.1
  *
- * @package 	Payze_Simple_Payment_Form
+ * @package    Payze_Simple_Payment_Form
  */
 
 // If uninstall not called from WordPress, then exit.

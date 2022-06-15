@@ -21,21 +21,21 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @author 				Vitalii Lobanov
- * @link 				https://bootandpencil.com/lobanov
- * @since 				0.0.1
- * @package 			Payze_Simple_Payment_Form
+ * @author                Vitalii Lobanov
+ * @link                https://bootandpencil.com/lobanov
+ * @since                0.0.1
+ * @package            Payze_Simple_Payment_Form
  *
  * @wordpress-plugin
- * Plugin Name: 		Payze Simple Payment Form
- * Plugin URI: 			https://bootandpencil.com/blog/payze-simple-payment-form/
- * Description: 		A simple way to manage job opening posts
- * Version: 			0.0.1
- * Author: 				Vitalii Lobanov
- * Author URI: 			https://bootandpencil.com/lobanov
- * License: 			GPL-2.0+
- * License URI: 		http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: 		payze-simple-payment-form
+ * Plugin Name:        Payze Simple Payment Form
+ * Plugin URI:            https://bootandpencil.com/blog/payze-simple-payment-form/
+ * Description:        A simple way to manage job opening posts
+ * Version:            0.0.1
+ * Author:                Vitalii Lobanov
+ * Author URI:            https://bootandpencil.com/lobanov
+ * License:            GPL-2.0+
+ * License URI:        http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:        payze-simple-payment-form
  */
 
 // If this file is called directly, abort.
@@ -68,4 +68,5 @@ function run_Payze_Simple_Payment_Form() {
 	$plugin->run();
 
 }
+
 run_Payze_Simple_Payment_Form();
