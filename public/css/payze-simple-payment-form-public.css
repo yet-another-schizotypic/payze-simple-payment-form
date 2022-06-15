@@ -10,7 +10,7 @@ h1 {
 
 
 
-input.psfp-input-nickname, input.psfp-input-amount-to-pay {
+input.pspf-input-nickname, input.pspf-input-amount-to-pay {
     /*Layout*/
     box-sizing: border-box;
     height: 40px;
@@ -53,7 +53,7 @@ input.psfp-input-nickname, input.psfp-input-amount-to-pay {
 
 
 
-input.psfp-input-submit-button {
+input.pspf-input-submit-button {
     /*Layout*/
     box-sizing: border-box;
     height: 40px;
@@ -86,7 +86,7 @@ input.psfp-input-submit-button {
     writing-mode: horizontal-tb;
 }
 
-input.psfp-input-submit-button:hover {
+input.pspf-input-submit-button:hover {
     transform: scale(1.1);
     padding-top: 0.5em !important;
     padding-bottom: 0.5em !important;
@@ -130,11 +130,11 @@ form.pspf-custom-payment-form{
     border-radius: 8px;
 }
 
-div.psfp-div-payment-systems-logos{
+div.pspf-div-payment-systems-logos{
     text-align: right;
 }
 
-img.psfp-img-payment-system-logo{
+img.pspf-img-payment-system-logo{
     margin-left: 1%;
     margin-right: 1%;
 }

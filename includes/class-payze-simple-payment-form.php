@@ -156,8 +156,8 @@ class Payze_Simple_Payment_Form {
 
 	//	$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 	//$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'init', $plugin_admin, 'new_cpt_job' );
-		$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
+		$this->loader->add_action( 'init', $plugin_admin, 'new_pspf_payment' );
+	//	$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
 		$this->loader->add_filter( 'plugin_action_links_' . PAYZE_SIMPLE_PAYMENT_FORM_FILE, $plugin_admin, 'link_settings' );
 		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'link_row', 10, 2 );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );

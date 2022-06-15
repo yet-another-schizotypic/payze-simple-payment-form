@@ -8,8 +8,8 @@
  * 
  * @since      0.0.1
  *
- * @package    Now Hiring
- * @subpackage Now Hiring/admin/partials
+ * @package    Payze Simple Payment Form
+ * @subpackage Payze Simple Payment Form/admin/partials
  */
 
 ?><p></p>

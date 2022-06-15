@@ -87,7 +87,7 @@ class Payze_Simple_Payment_Form_Public {
      * @return string
      */
 
-    public function psfp_display_payment_form ($atts = array()){
+    public function pspf_display_payment_form ($atts = array()){
         ob_start();
 
         $tmp = plugin_dir_path(  __DIR__  ) . 'includes/partials/' . $this->plugin_name . '-payment-form.php' ;
@@ -106,7 +106,7 @@ class Payze_Simple_Payment_Form_Public {
         return $out;
     }
 
-    public function psfp_process_payment (){
+    public function pspf_process_payment (){
         if ( isset( $_POST['submitted'] ) ) {
             wp_die('Submitted! 45664565465464654654654');
         }
@@ -123,20 +123,20 @@ class Payze_Simple_Payment_Form_Public {
 	 *
 	 * @return	mixed	$output		Output of the buffer
 	 */
-	public function psfp_process_payze_payment_form_actions($atts = array() ) {
+	public function pspf_process_payze_payment_form_actions($atts = array() ) {
 
 		//TODO: написать логику, опции отсюда доступны: $this->options
 
 		if ( isset( $_POST['submitted'] )) {
 			$payze_api = new Payze_V1_API($this->options);
 			$res = $payze_api->do_user_redirect_to_bank_payment_form($_POST['nickName'], $_POST['amountToPay']);
-			//$this->psfp_process_payment();
+			//$this->pspf_process_payment();
 		}
 		if (isset($_GET['payment_transaction_id'])) {
 			$payze_api = new Payze_V1_API($this->options);
 			$res = $payze_api->process_form_after_bank_redirection($_GET['payment_transaction_id']);
 		}
-        return $this->psfp_display_payment_form($atts);
+        return $this->pspf_display_payment_form($atts);
 
 	} // list_openings()
 
@@ -147,7 +147,7 @@ class Payze_Simple_Payment_Form_Public {
 	 */
 	public function register_shortcodes() {
 
-		add_shortcode( 'pspf_custom_payment_form', array( $this, 'psfp_process_payze_payment_form_actions') );
+		add_shortcode( 'pspf_custom_payment_form', array( $this, 'pspf_process_payze_payment_form_actions') );
 		return true;
 
 	} // register_shortcodes()
@@ -164,7 +164,7 @@ class Payze_Simple_Payment_Form_Public {
 
 		$return = $template;
 
-	    if ( $post->post_type == 'payment' ) {
+	    if ( $post->post_type == 'pspf_payment' ) {
 
 			$return = payze_simple_payment_form_get_template( 'single-job' );
 

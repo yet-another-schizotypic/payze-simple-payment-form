@@ -77,7 +77,7 @@ class Payze_Simple_Payment_Form_Admin {
 	public function add_menu() {
 
 		add_submenu_page(
-			'edit.php?post_type=payment',
+			'edit.php?post_type=pspf_payment',
 			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Payze Simple Payment Form', 'payze-simple-payment-form' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Settings', 'payze-simple-payment-form' ) ),
 			'manage_options',
@@ -86,7 +86,7 @@ class Payze_Simple_Payment_Form_Admin {
 		);
 
 		add_submenu_page(
-			'edit.php?post_type=payment',
+			'edit.php?post_type=pspf_payment',
 			apply_filters( $this->plugin_name . '-settings-page-title', esc_html__( 'Payze Simple Payment Form Help', 'payze-simple-payment-form' ) ),
 			apply_filters( $this->plugin_name . '-settings-menu-title', esc_html__( 'Help', 'payze-simple-payment-form' ) ),
 			'manage_options',
@@ -95,59 +95,6 @@ class Payze_Simple_Payment_Form_Admin {
 		);
 
 	} // add_menu()
-
-// --Commented out by Inspection START (15.06.2022, 18:00):
-//	/**
-//     * Manages any updates or upgrades needed before displaying notices.
-//     * Checks plugin version against version required for displaying
-//     * notices.
-//     */
-//
-//	public function admin_notices_init() {
-//
-//		$current_version = '0.0.1';
-//
-//		if ( $this->version !== $current_version ) {
-//
-//			// Do whatever upgrades needed here.
-//
-//			update_option('my_plugin_version', $current_version);
-//
-//			$this->add_notice();
-//
-//		}
-//
-//	} // admin_notices_init()
-// --Commented out by Inspection STOP (15.06.2022, 18:00)
-
-
-// --Commented out by Inspection START (15.06.2022, 18:02):
-//	/**
-//	 * Displays admin notices
-//	 *
-//	 * @return 	string 			Admin notices
-//	 */
-//	public function display_admin_notices() {
-//
-//		$notices = get_option( 'payze_simple_payment_form_deferred_admin_notices' );
-//
-//		if ( empty( $notices ) ) { return true; }
-//
-//		foreach ( $notices as $notice ) {
-//
-//			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
-//
-//		}
-//
-//		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
-//
-//		return true;
-//
-//    } // display_admin_notices()
-// --Commented out by Inspection STOP (15.06.2022, 18:02)
-
-
-
 
 	/**
 	 * Creates a select field
@@ -231,13 +178,13 @@ class Payze_Simple_Payment_Form_Admin {
 	public static function get_options_list() {
 
 		$options   = array();
-        $options[] = array( 'psfp-demo-key', 'text' );
-       // $options =  array( 'psfp-demo-key', 'text' );
-        $options[] = array( 'psfp-demo-secret', 'text' );
-        $options[] = array( 'psfp-production-key', 'text' );
-        $options[] = array( 'psfp-production-secret', 'text' );
-        $options[] = array( 'psfp-webhook-url', 'text' );
-        $options[] = array( 'psfp-operating-mode', 'select' );
+        $options[] = array( 'pspf-demo-key', 'text' );
+       // $options =  array( 'pspf-demo-key', 'text' );
+        $options[] = array( 'pspf-demo-secret', 'text' );
+        $options[] = array( 'pspf-production-key', 'text' );
+        $options[] = array( 'pspf-production-secret', 'text' );
+        $options[] = array( 'pspf-webhook-url', 'text' );
+        $options[] = array( 'pspf-operating-mode', 'select' );
 
 
 		return $options;
@@ -277,7 +224,7 @@ class Payze_Simple_Payment_Form_Admin {
 //	 */
 //	public function link_settings( $links ) {
 //
-//		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
+//		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=pspf_payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
 //
 //		return $links;
 //
@@ -292,24 +239,24 @@ class Payze_Simple_Payment_Form_Admin {
 	 * @access 	public
 	 * @uses 	register_post_type()
 	 */
-	public static function new_cpt_job() {
+	public static function new_pspf_payment() {
 
 		$cap_type 	= 'post';
 		$plural 	= 'Payments';
 		$single 	= 'Payment';
-		$cpt_name 	= 'payment';
+		$cpt_name 	= 'pspf_payment';
 
 		$opts['can_export']								= TRUE;
 		$opts['capability_type']						= $cap_type;
-		$opts['description']							= '';
+		$opts['description']							= 'Payze payment record';
 		$opts['exclude_from_search']					= TRUE;
 		$opts['has_archive']							= FALSE;
 		$opts['hierarchical']							= FALSE;
 		$opts['map_meta_cap']							= TRUE;
 		$opts['menu_icon']								= 'dashicons-money';
 		$opts['menu_position']							= 25;
-		$opts['public']									= TRUE;
-		$opts['publicly_querable']						= TRUE;
+		$opts['public']									= FALSE;
+		$opts['publicly_querable']						= FALSE;
 		$opts['query_var']								= TRUE;
 		$opts['register_meta_box_cb']					= '';
 		$opts['rewrite']								= FALSE;
@@ -319,6 +266,8 @@ class Payze_Simple_Payment_Form_Admin {
 		$opts['show_ui']								= TRUE;
 		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
 		$opts['taxonomies']								= array();
+
+
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_$cap_type";
@@ -333,14 +282,16 @@ class Payze_Simple_Payment_Form_Admin {
 		$opts['capabilities']['publish_posts']			= "publish_{$cap_type}s";
 		$opts['capabilities']['read_post']				= "read_$cap_type";
 		$opts['capabilities']['read_private_posts']		= "read_private_{$cap_type}s";
+		$opts['capabilities']['create_posts']		= FALSE;
+
 
 		//$opts['labels']['add_new']						= esc_html__( "Add New {$single}", 'payze-simple-payment-form' );
 		//$opts['labels']['add_new_item']					= esc_html__( "Add New {$single}", 'payze-simple-payment-form' );
-		$opts['labels']['all_items']					= esc_html__( $plural, 'payze-simple-payment-form' );
+	//	$opts['labels']['all_items']					= esc_html__( $plural, 'payze-simple-payment-form' );
 		$opts['labels']['edit_item']					= esc_html__( "Edit $single" , 'payze-simple-payment-form' );
-		$opts['labels']['menu_name']					= esc_html__( $plural, 'payze-simple-payment-form' );
+	//	$opts['labels']['menu_name']					= esc_html__( $plural, 'payze-simple-payment-form' );
 		$opts['labels']['name']							= esc_html__( $plural, 'payze-simple-payment-form' );
-		$opts['labels']['name_admin_bar']				= esc_html__( $single, 'payze-simple-payment-form' );
+	//	$opts['labels']['name_admin_bar']				= esc_html__( $single, 'payze-simple-payment-form' );
 		//$opts['labels']['new_item']						= esc_html__( "New {$single}", 'payze-simple-payment-form' );
 		$opts['labels']['not_found']					= esc_html__( "No $plural Found", 'payze-simple-payment-form' );
 		$opts['labels']['not_found_in_trash']			= esc_html__( "No $plural Found in Trash", 'payze-simple-payment-form' );
@@ -359,65 +310,7 @@ class Payze_Simple_Payment_Form_Admin {
 
 		register_post_type( strtolower( $cpt_name ), $opts );
 
-	} // new_cpt_job()
-
-	/**
-	 * Creates a new taxonomy for a custom post type
-	 *
-	 * @since 	0.0.1
-	 * @access 	public
-	 * @uses 	register_taxonomy()
-	 */
-	public static function new_taxonomy_type() {
-
-		$plural 	= 'Types';
-		$single 	= 'Type';
-		$tax_name 	= 'job_type';
-
-		$opts['hierarchical']							= TRUE;
-		//$opts['meta_box_cb'] 							= '';
-		$opts['public']									= TRUE;
-		$opts['query_var']								= $tax_name;
-		$opts['show_admin_column'] 						= FALSE;
-		$opts['show_in_nav_menus']						= TRUE;
-		$opts['show_tag_cloud'] 						= TRUE;
-		$opts['show_ui']								= TRUE;
-		$opts['sort'] 									= '';
-		//$opts['update_count_callback'] 					= '';
-
-		$opts['capabilities']['assign_terms'] 			= 'edit_posts';
-		$opts['capabilities']['delete_terms'] 			= 'manage_categories';
-		$opts['capabilities']['edit_terms'] 			= 'manage_categories';
-		$opts['capabilities']['manage_terms'] 			= 'manage_categories';
-
-		$opts['labels']['add_new_item'] 				= esc_html__( "Add New {$single}", 'payze-simple-payment-form' );
-		$opts['labels']['add_or_remove_items'] 			= esc_html__( "Add or remove {$plural}", 'payze-simple-payment-form' );
-		$opts['labels']['all_items'] 					= esc_html__( $plural, 'payze-simple-payment-form' );
-		$opts['labels']['choose_from_most_used'] 		= esc_html__( "Choose from most used {$plural}", 'payze-simple-payment-form' );
-		$opts['labels']['edit_item'] 					= esc_html__( "Edit {$single}" , 'payze-simple-payment-form');
-		$opts['labels']['menu_name'] 					= esc_html__( $plural, 'payze-simple-payment-form' );
-		$opts['labels']['name'] 						= esc_html__( $plural, 'payze-simple-payment-form' );
-		$opts['labels']['new_item_name'] 				= esc_html__( "New {$single} Name", 'payze-simple-payment-form' );
-		$opts['labels']['not_found'] 					= esc_html__( "No {$plural} Found", 'payze-simple-payment-form' );
-		$opts['labels']['parent_item'] 					= esc_html__( "Parent {$single}", 'payze-simple-payment-form' );
-		$opts['labels']['parent_item_colon'] 			= esc_html__( "Parent {$single}:", 'payze-simple-payment-form' );
-		$opts['labels']['popular_items'] 				= esc_html__( "Popular {$plural}", 'payze-simple-payment-form' );
-		$opts['labels']['search_items'] 				= esc_html__( "Search {$plural}", 'payze-simple-payment-form' );
-		$opts['labels']['separate_items_with_commas'] 	= esc_html__( "Separate {$plural} with commas", 'payze-simple-payment-form' );
-		$opts['labels']['singular_name'] 				= esc_html__( $single, 'payze-simple-payment-form' );
-		$opts['labels']['update_item'] 					= esc_html__( "Update {$single}", 'payze-simple-payment-form' );
-		$opts['labels']['view_item'] 					= esc_html__( "View {$single}", 'payze-simple-payment-form' );
-
-		$opts['rewrite']['ep_mask']						= EP_NONE;
-		$opts['rewrite']['hierarchical']				= FALSE;
-		$opts['rewrite']['slug']						= esc_html__( strtolower( $tax_name ), 'payze-simple-payment-form' );
-		$opts['rewrite']['with_front']					= FALSE;
-
-		$opts = apply_filters( 'payze-simple-payment-form-taxonomy-options', $opts );
-
-		register_taxonomy( $tax_name, 'job', $opts );
-
-	} // new_taxonomy_type()
+	}
 
 	/**
 	 * Creates the help page
@@ -451,79 +344,79 @@ class Payze_Simple_Payment_Form_Admin {
 		// add_settings_field( $id, $title, $callback, $menu_slug, $section, $args );
 
 		add_settings_field(
-			'psfp-demo-key',
-			apply_filters( $this->plugin_name . 'label-psfp-demo-key', esc_html__( 'DEMO key', 'payze-simple-payment-form' ) ),
+			'pspf-demo-key',
+			apply_filters( $this->plugin_name . 'label-pspf-demo-key', esc_html__( 'DEMO key', 'payze-simple-payment-form' ) ),
 			array( $this, 'field_text' ),
 			$this->plugin_name,
 			$this->plugin_name . '-settings',
 			array(
 				'description' 	=> "You can find DEMO key at Payze's dashboard.",
-				'id' 			=> 'psfp-demo-key',
+				'id' 			=> 'pspf-demo-key',
 				'value' 		=> '',
 			)
 		);
 
         add_settings_field(
-            'psfp-demo-secret',
-            apply_filters( $this->plugin_name . 'label-psfp-demo-secret', esc_html__( 'DEMO secret', 'payze-simple-payment-form' ) ),
+            'pspf-demo-secret',
+            apply_filters( $this->plugin_name . 'label-pspf-demo-secret', esc_html__( 'DEMO secret', 'payze-simple-payment-form' ) ),
             array( $this, 'field_text' ),
             $this->plugin_name,
             $this->plugin_name . '-settings',
             array(
                 'description' 	=> "You can find DEMO secret at Payze's dashboard.",
-                'id' 			=> 'psfp-demo-secret',
+                'id' 			=> 'pspf-demo-secret',
                 'value' 		=> '',
             )
         );
 
         add_settings_field(
-            'psfp-production-key',
-            apply_filters( $this->plugin_name . 'label-psfp-production-key', esc_html__( 'PRODUCTION key', 'payze-simple-payment-form' ) ),
+            'pspf-production-key',
+            apply_filters( $this->plugin_name . 'label-pspf-production-key', esc_html__( 'PRODUCTION key', 'payze-simple-payment-form' ) ),
             array( $this, 'field_text' ),
             $this->plugin_name,
             $this->plugin_name . '-settings',
             array(
                 'description' 	=> "You can find PRODUCTION key at Payze's dashboard.",
-                'id' 			=> 'psfp-production-key',
+                'id' 			=> 'pspf-production-key',
                 'value' 		=> '',
             )
         );
 
         add_settings_field(
-            'psfp-production-secret',
-            apply_filters( $this->plugin_name . 'label-psfp-production-secret', esc_html__( 'PRODUCTION secret', 'payze-simple-payment-form' ) ),
+            'pspf-production-secret',
+            apply_filters( $this->plugin_name . 'label-pspf-production-secret', esc_html__( 'PRODUCTION secret', 'payze-simple-payment-form' ) ),
             array( $this, 'field_text' ),
             $this->plugin_name,
             $this->plugin_name . '-settings',
             array(
                 'description' 	=> "You can find PRODUCTION secret at Payze's dashboard.",
-                'id' 			=> 'psfp-production-secret',
+                'id' 			=> 'pspf-production-secret',
                 'value' 		=> '',
             )
         );
 
         add_settings_field(
-            'psfp-webhook-url',
-            apply_filters( $this->plugin_name . 'label-psfp-webhook-url', esc_html__( "Webhook URL. You can use it for debugging. Leave blank if you don't know what is it.", 'payze-simple-payment-form' ) ),
+            'pspf-webhook-url',
+            apply_filters( $this->plugin_name . 'label-pspf-webhook-url', esc_html__( "Webhook URL. You can use it for debugging. Leave blank if you don't know what is it.", 'payze-simple-payment-form' ) ),
             array( $this, 'field_text' ),
             $this->plugin_name,
             $this->plugin_name . '-settings',
             array(
                 'description' 	=> "You can find DEMO secret at Payze's dashboard.",
-                'id' 			=> 'psfp-webhook-url',
+                'id' 			=> 'pspf-webhook-url',
                 'value' 		=> '',
             )
         );
 
         add_settings_field(
-            'psfp-operating-mode',
-            apply_filters( $this->plugin_name . 'label-psfp-operating-mode', esc_html__( 'Operating mode', 'payze-simple-payment-form' ) ),
+            'pspf-operating-mode',
+            apply_filters( $this->plugin_name . 'label-pspf-operating-mode', esc_html__( 'Operating mode', 'payze-simple-payment-form' ) ),
             array( $this, 'field_select' ),
             $this->plugin_name,
             $this->plugin_name . '-settings',
             array(
                 'description' 	=> "In DEMO / sandbox mode transactions actually do not happen, money won't be charged.",
-                'id' 			=> 'psfp-operating-mode',
+                'id' 			=> 'pspf-operating-mode',
                 'selections'    => array(
                     array( 'label' => 'DEMO (sandbox) mode, Georgian Lari', 'value' => 'DEMO-GEL'),
                     array( 'label' => 'PRODUCTION (live) mode, United States Dollar', 'value' => 'PRODUCTION-USD'),
@@ -545,7 +438,7 @@ class Payze_Simple_Payment_Form_Admin {
 
 		add_settings_section(
 			$this->plugin_name . '-settings',
-			apply_filters( $this->plugin_name . 'section-title-settings', esc_html__( 'Messages', 'payze-simple-payment-form' ) ),
+			apply_filters( $this->plugin_name . 'section-title-settings', esc_html__( 'Settings', 'payze-simple-payment-form' ) ),
 			array( $this, 'section_settings' ),
 			$this->plugin_name
 		);
@@ -560,7 +453,6 @@ class Payze_Simple_Payment_Form_Admin {
 	 */
 	public function register_settings() {
 
-		// register_setting( $option_group, $option_name, $sanitize_callback );
 
 		register_setting(
 			$this->plugin_name . '-options',

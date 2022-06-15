@@ -10,25 +10,27 @@ class Payze_V1_API
 	private $currency;
 	private $locale_info;
 	private $payze_api_url;
+	private $default_transaction_status;
 
 
 	function __construct(array $settings_context) {
-		if (null !== $settings_context['psfp-operating-mode']){
-			if ($settings_context['psfp-operating-mode'] === 'DEMO-GEL'){
-				$this->api_key_to_use    = $settings_context['psfp-demo-key'];
-				$this->api_secret_to_use = $settings_context['psfp-demo-secret'];
+		if (null !== $settings_context['pspf-operating-mode']){
+			if ($settings_context['pspf-operating-mode'] === 'DEMO-GEL'){
+				$this->api_key_to_use    = $settings_context['pspf-demo-key'];
+				$this->api_secret_to_use = $settings_context['pspf-demo-secret'];
 				} else {
-				$this->api_key_to_use    = $settings_context['psfp-production-key'];
-				$this->api_secret_to_use = $settings_context['psfp-production-secret'];
+				$this->api_key_to_use    = $settings_context['pspf-production-key'];
+				$this->api_secret_to_use = $settings_context['pspf-production-secret'];
 			}
-			$this->currency              = substr( $settings_context['psfp-operating-mode'], - 3 );
+			$this->currency              = substr( $settings_context['pspf-operating-mode'], - 3 );
 			$this->locale_info           = localeconv();
 			global $wp;
 			$this->current_page_url      = home_url( add_query_arg( array(), $wp->request ) );
-			$this->webhook_url           = isset( $settings_context['psfp-webhook-url']) ? home_url( add_query_arg( array(), $wp->request ) ) : $settings_context['psfp-webhook-url'];
+			$this->webhook_url           = isset( $settings_context['pspf-webhook-url']) ? home_url( add_query_arg( array(), $wp->request ) ) : $settings_context['pspf-webhook-url'];
 			$this->payze_api_url               = "https://payze.io/api/v1";
+			$default_transaction_status = "UNKNOWN";
 		} else {
-			wp_die ('Something went wrong: operating mode is not set');
+			$this->show_message_redirect_and_die('FAILURE', 'Unknown or unset OPERATING_MODE', 'This a bug, please contact technical support');
 		}
 	}
 
@@ -46,20 +48,29 @@ class Payze_V1_API
 		switch (strtoupper($category)){
 			case 'SUCCESS':
 				$icon = '/wp-content/plugins/payze-simple-payment-form/public/img/success-icon.png';
-
+				$category_message = "OK! Everything went fine.";
+				$basic_description = 'Operation: <b>' . $short_message . '</b>. <br/>';
+				$details_description = 'Status: <b>' . $details . '</b> <br/>';
 				break;
 			case 'FAILURE':
-				$message .= '<img src="/wp-content/plugins/payze-simple-payment-form/public/img/error-failure-icon.png" alt="Failure icon"/><br/><br/><br/>';
-				$message .= '<H1>Something went wrong!</H1><br/>';
-				$message .= 'Error: <b>' . $short_message . '</b>. <br/>';
-				$message .= 'Details: <b>' . $details . '</b> <br/>';
+				$icon = '/wp-content/plugins/payze-simple-payment-form/public/img/error-failure-icon.png';
+				$category_message = "Something went wrong!";
+				$basic_description = 'Error: <b>' . $short_message . '</b>. <br/>';
+				$details_description = 'Details: <b>' . $details . '</b> <br/>';
 				break;
 			case 'INFO':
+				//TODO допилилить или убрать
 				$icon = '/wp-content/plugins/payze-simple-payment-form/public/img/info-icon.png';
 				break;
 			default:
 				break;
 		}
+
+		$message .= "<img src='$icon' alt='Failure icon'/><br/><br/><br/>";
+		$message .= "<H1>$category_message</H1><br/>";
+		$message .= $basic_description;
+		$message .= $details_description;
+
 
 		$timeout  = 5;
 		$message  .= 'You will be redirected to <a href="' . $this->current_page_url . '">' . $this->current_page_url . '</a>';
@@ -102,8 +113,7 @@ class Payze_V1_API
 
 				break;
 			default:
-				wp_die("Unknown Pazye API query: $query_type, don't know how to process it. Please reload the page and try once again.");
-
+				$this->show_message_redirect_and_die('FAILURE', "Unknown Pazye API query: $query_type","Please reload the page and try once again.");
 		}
 		$payze_api_credentials = ["apiKey" => $this->api_key_to_use, "apiSecret" => $this->api_secret_to_use];
 		$post_body = array_merge($payze_api_credentials, $post_body);
@@ -134,7 +144,8 @@ class Payze_V1_API
 		$payze_raw_response = $payze_responce['payze_raw_response'];
 
 		if ( $payze_responce['httpCode'] !== 200 ) {
-			wp_die( "An error occurred attempting sending request to Payze.io " . "<br> HTTP Code: " . $payze_responce['httpCode']  . "<br> Error message from server: " . json_decode($payze_raw_response)->message);
+			$error_message_details = "HTTP Code: " . $payze_responce['httpCode']  . ". Error message from server: " . json_decode($payze_raw_response)->message;
+			$this->show_message_redirect_and_die('FAILURE', "An error occurred attempting sending request to Payze.io ", $error_message_details);
 		}
 
 		$transactionUrl = json_decode( $payze_raw_response )->response->transactionUrl;
@@ -142,9 +153,11 @@ class Payze_V1_API
 
 			//TODO: куда-то сюда проверку прошла оплата или нет, наверное, вебхуком
 			//TODO: дефолтный заголовок до того, как банк редиректнет, что-то вроде: Unчего-то-там
+			//TODO: ограничить на фронте и в бэке длину никнейма
+			$post_title = "Payer's nickname: ". sanitize_text_field($payer_nickname). '.  Amount: '. sanitize_text_field($payment_amount) . ". " . $this->currency . ". Status: " . $this->default_transaction_status;
 			$post = array(
-				'post_type'    => 'payment',
-				'post_title'   => 'Payment - '. sanitize_text_field($payer_nickname). ' — '. sanitize_text_field($payment_amount) . " " . $this->currency,
+				'post_type'    => 'pspf_payment',
+				'post_title'   =>  $post_title,
 				'post_status'  => 'publish',
 				'post_author'  => 1,
 			);
@@ -161,7 +174,7 @@ class Payze_V1_API
 		}
 
 		else {
-			wp_die("We couldn't receive correct transactionURL from Payze. Check plugin settings and try once again.");
+			$this->show_message_redirect_and_die('FAILURE',"We couldn't receive correct transactionURL from Payze.", "Wrong URL: $transactionUrl");
 		}
 
 	}
@@ -183,11 +196,13 @@ class Payze_V1_API
 		$payze_raw_response = $payze_responce['payze_raw_response'];
 		$httpCode = $payze_responce['httpCode'];
 		if (  $httpCode !== 200 ) {
-			wp_die( "An error occurred attempting to get info about transaction $transaction_id" . "<br> HTTP Code: " . $payze_responce['httpCode']  . "<br> Error message from server: " . json_decode($payze_raw_response)->message);
+			$error_message = "An error occurred attempting to get info about transaction $transaction_id";
+			$error_details = "HTTP Code: " . $payze_responce['httpCode']  . ". Error message from server: " . json_decode($payze_raw_response)->message;
+			$this->show_message_redirect_and_die('FAILURE', $error_details);
 		}
 		$payze_post_response = json_decode($payze_raw_response);
 		$payze_status =	sanitize_text_field($payze_post_response->response->status);
-		$payze_rejection_reason = sanitize_text_field($payze_post_response->response->rejectionReason);
+		$payze_rejection_reason = isset($payze_post_response->response->rejectionReason) ? sanitize_text_field($payze_post_response->response->rejectionReason) : "";
 		return array('payze_status' => $payze_status, 'payze_rejection_reason' => $payze_rejection_reason);
 	}
 
@@ -199,40 +214,48 @@ class Payze_V1_API
 			$transaction_status = $transaction_info['payze_status'];
 			$rejection_reason = $transaction_info['payze_rejection_reason'];
 
+			$post_args = array(
+				'posts_per_page'   => -1,
+				'post_type'        => 'pspf_payment',
+				'meta_key'         => 'payze_transaction_id',
+				'meta_value'       => $transaction_id
+			);
+			$payment_record = new WP_Query( $post_args );
+			$payment_record_post_id = $payment_record->posts[0]->ID;
+
+			$position = strpos($payment_record->posts[0]->post_title, 'Status:');
+			if ( ! $position ){
+				$position = strlen($payment_record->posts[0]->post_title) - 1;
+			}
+			$payment_record_new_title = substr($payment_record->posts[0]->post_title, 0,$position - strlen($payment_record->posts[0]->post_title));
+
 			if (strcasecmp($transaction_status, 'Committed') === 0){
-
 				//TODO: инфу о том, что всё хорошо, записываем в пост payment
-				wp_die('Thank you for your payment!');
-
+				$payment_record_new_title .= " Status: " .  $transaction_status . " — Successfull payment";
+				$status = 'SUCCESS';
 			} else {
-				$post_args = array(
-					'posts_per_page'   => -1,
-					'post_type'        => 'payment',
-					'meta_key'         => 'payze_transaction_id',
-					'meta_value'       => $transaction_id
-				);
-				$payment_record = new WP_Query( $post_args );
-				$payment_record_post_id = $payment_record->posts[0]->ID;
-				$payment_record_new_title = $payment_record->posts[0]->post_title . ": " . $transaction_status . " — " . $rejection_reason;
-				$post_update = array(
-					'ID'         => $payment_record_post_id,
-					'post_title' => $payment_record_new_title
-				);
-
-				wp_update_post( $post_update );
-
-				add_post_meta($payment_record_post_id, 'payze_status', $transaction_status, true);
-				add_post_meta($payment_record_post_id, 'payze_rejection_reason', $rejection_reason, true);
-
-				$location = $this->current_page_url;
-				$this->show_message_redirect_and_die('Failure', 'payment status is ' . $transaction_status, $rejection_reason);
-
+				$payment_record_new_title .= " Status: " .  $transaction_status . " — " . $rejection_reason;
+				$status = 'FAILURE';
 			}
 
+			$post_update = array(
+				'ID'         => $payment_record_post_id,
+				'post_title' => $payment_record_new_title
+			);
+			wp_update_post( $post_update );
+			add_post_meta($payment_record_post_id, 'payze_status', $transaction_status, true);
+			add_post_meta($payment_record_post_id, 'payze_rejection_reason', $rejection_reason, true);
+
+			$this->show_message_redirect_and_die($status, 'payment status is ' . $transaction_status,
+						isset($rejection_reason) ? $rejection_reason : "OK");
+
+
 		} else {
-			wp_die ("Unknown transaction pattern: $transaction_id. Please try again or contact technical support.");
+			$this->show_message_redirect_and_die('Failure', "Something went wrong. Please try again or contact technical support.", "Transaction ID is $transaction_id");
 		}
 
 	}
 
 }
+
+//TODO: отцентровать заголовок и текст под картинкой с сообщением об ошибке
