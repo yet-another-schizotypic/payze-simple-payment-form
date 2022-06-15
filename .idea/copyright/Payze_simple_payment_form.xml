@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="notice" value="Copyright (c) &amp;#36;originalComment.match(&quot;Copyright \(c\) (\d+)&quot;, 1, &quot;-&quot;, &quot;&amp;#36;today.year&quot;)&amp;#36;today.year.&#10;This code was made by copy-paste and some monkey typing. &#10;&#10;The most significant parts are taken from the «Now Hiring» plugin by slushman&#10; (https://github.com/slushman/now-hiring), the «WordPress Boilerplate» by &#10; DevinVinson (https://github.com/DevinVinson/WordPress-Plugin-Boilerplate)  &#10; and the «Authorize.net - Simple Donations» by Aman Verma (https://twitter.com/amanverma217). &#10;&#10;License: GPLv2 or later.&#10;&#10;" />
+    <option name="myName" value="Payze simple payment form" />
+  </copyright>
+</component>
