@@ -7,7 +7,7 @@
  * public-facing side of the site and the dashboard.
  *
  * settings
- * @since 		1.0.0
+ * @since 		0.0.1
  *
  * @package 	Payze_Simple_Payment_Form
  * @subpackage 	Payze_Simple_Payment_Form/includes
@@ -22,7 +22,7 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since 		1.0.0
+ * @since 		0.0.1
  * @package 	Payze_Simple_Payment_Form
  * @subpackage 	Payze_Simple_Payment_Form/includes
  * 
@@ -33,7 +33,7 @@ class Payze_Simple_Payment_Form {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		protected
 	 * @var 		Payze_Simple_Payment_Form_Loader 		$loader 		Maintains and registers all hooks for the plugin.
 	 */
@@ -42,7 +42,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		protected
 	 * @var 		string 			$plugin_name 		The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +51,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Sanitizer for cleaning user input
 	 *
-	 * @since    1.0.0
+	 * @since    0.0.1
 	 * @access   private
 	 * @var      Payze_Simple_Payment_Form_Sanitize    $sanitizer    Sanitizes data
 	 */
@@ -60,7 +60,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		protected
 	 * @var 		string 			$version 		The current version of the plugin.
 	 */
@@ -73,22 +73,16 @@ class Payze_Simple_Payment_Form {
 	 * Load the dependencies, define the locale, and set the hooks for the Dashboard and
 	 * the public-facing side of the site.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 	public function __construct() {
 
 		$this->plugin_name = 'payze-simple-payment-form';
-		$this->version = '1.0.0';
-
+		$this->version = '0.0.1';
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_template_hooks();
-
-
-
-
 	}
 
 	/**
@@ -104,7 +98,7 @@ class Payze_Simple_Payment_Form {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 */
 	private function load_dependencies() {
@@ -114,12 +108,6 @@ class Payze_Simple_Payment_Form {
 		 * core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		//require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the Dashboard.
@@ -139,17 +127,6 @@ class Payze_Simple_Payment_Form {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-payze-simple-payment-form-template-functions.php';
 
 		/**
-		 * The class responsible for all global functions.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/payze-simple-payment-form-global-functions.php';
-
-		/**
-		 * The class responsible for defining all actions shared by the Dashboard and public-facing sides.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-simple-payment-form-shared.php';
-
-
-		/**
 		 * The class responsible for processing Payze API.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-payze-v1-api.php';
@@ -165,26 +142,12 @@ class Payze_Simple_Payment_Form {
 
 	}
 
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Payze_Simple_Payment_Form_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since 		1.0.0
-	 * @access 		private
-	 */
-	private function set_locale() {
-
-
-
-	}
 
 	/**
 	 * Register all of the hooks related to the dashboard functionality
 	 * of the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 */
 	private function define_admin_hooks() {
@@ -195,14 +158,14 @@ class Payze_Simple_Payment_Form {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', $plugin_admin, 'new_cpt_job' );
 		$this->loader->add_action( 'init', $plugin_admin, 'new_taxonomy_type' );
-		$this->loader->add_filter( 'plugin_action_links_' . NOW_HIRING_FILE, $plugin_admin, 'link_settings' );
+		$this->loader->add_filter( 'plugin_action_links_' . PAYZE_SIMPLE_PAYMENT_FORM_FILE, $plugin_admin, 'link_settings' );
 		$this->loader->add_action( 'plugin_row_meta', $plugin_admin, 'link_row', 10, 2 );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_sections' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_fields' );
-		$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notices' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_notices_init' );
+	//	$this->loader->add_action( 'admin_notices', $plugin_admin, 'display_admin_notices' );
+	//	$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_notices_init' );
 
 	} // define_admin_hooks()
 
@@ -210,7 +173,7 @@ class Payze_Simple_Payment_Form {
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 */
 	private function define_public_hooks() {
@@ -239,7 +202,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Register all of the hooks related to the templates.
 	 *
-	 * @since    1.0.0
+	 * @since    0.0.1
 	 * @access   private
 	 */
 	private function define_template_hooks() {
@@ -261,7 +224,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 	public function run() {
 		$this->loader->run();
@@ -271,7 +234,7 @@ class Payze_Simple_Payment_Form {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		string 					The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -281,7 +244,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		Payze_Simple_Payment_Form_Loader 		Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
@@ -291,7 +254,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		string 					The version number of the plugin.
 	 */
 	public function get_version() {
@@ -307,7 +270,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Flushes widget cache
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		public
 	 * @param 		int 		$post_id 		The post ID
 	 * @return 		void
@@ -322,7 +285,7 @@ class Payze_Simple_Payment_Form {
 	/**
 	 * Registers widgets with WordPress
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		public
 	 */
 	public function widgets_init() {

@@ -4,7 +4,7 @@
  * The dashboard-specific functionality of the plugin.
  *
  * settings
- * @since 		1.0.0
+ * @since 		0.0.1
  *
  * @package 	Payze_Simple_Payment_Form
  * @subpackage 	Payze_Simple_Payment_Form/admin
@@ -25,7 +25,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * The plugin options.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$options    The plugin options.
 	 */
@@ -34,7 +34,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$plugin_name 		The ID of this plugin.
 	 */
@@ -43,7 +43,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$version 			The current version of this plugin.
 	 */
@@ -52,7 +52,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @param 		string 			$Payze_Simple_Payment_Form 		The name of this plugin.
 	 * @param 		string 			$version 			The version of this plugin.
 	 */
@@ -71,7 +71,7 @@ class Payze_Simple_Payment_Form_Admin {
 	 * Adds a settings page link to a menu
 	 *
 	 * @link 		https://codex.wordpress.org/Administration_Menus
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		void
 	 */
 	public function add_menu() {
@@ -96,55 +96,61 @@ class Payze_Simple_Payment_Form_Admin {
 
 	} // add_menu()
 
-	/**
-     * Manages any updates or upgrades needed before displaying notices.
-     * Checks plugin version against version required for displaying
-     * notices.
-     */
+// --Commented out by Inspection START (15.06.2022, 18:00):
+//	/**
+//     * Manages any updates or upgrades needed before displaying notices.
+//     * Checks plugin version against version required for displaying
+//     * notices.
+//     */
+//
+//	public function admin_notices_init() {
+//
+//		$current_version = '0.0.1';
+//
+//		if ( $this->version !== $current_version ) {
+//
+//			// Do whatever upgrades needed here.
+//
+//			update_option('my_plugin_version', $current_version);
+//
+//			$this->add_notice();
+//
+//		}
+//
+//	} // admin_notices_init()
+// --Commented out by Inspection STOP (15.06.2022, 18:00)
 
-	public function admin_notices_init() {
 
-		$current_version = '1.0.0';
+// --Commented out by Inspection START (15.06.2022, 18:02):
+//	/**
+//	 * Displays admin notices
+//	 *
+//	 * @return 	string 			Admin notices
+//	 */
+//	public function display_admin_notices() {
+//
+//		$notices = get_option( 'payze_simple_payment_form_deferred_admin_notices' );
+//
+//		if ( empty( $notices ) ) { return true; }
+//
+//		foreach ( $notices as $notice ) {
+//
+//			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
+//
+//		}
+//
+//		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
+//
+//		return true;
+//
+//    } // display_admin_notices()
+// --Commented out by Inspection STOP (15.06.2022, 18:02)
 
-		if ( $this->version !== $current_version ) {
-
-			// Do whatever upgrades needed here.
-
-			update_option('my_plugin_version', $current_version);
-
-			$this->add_notice();
-
-		}
-
-	} // admin_notices_init()
-
-	/**
-	 * Displays admin notices
-	 *
-	 * @return 	string 			Admin notices
-	 */
-	public function display_admin_notices() {
-
-		$notices = get_option( 'payze_simple_payment_form_deferred_admin_notices' );
-
-		if ( empty( $notices ) ) { return true; }
-
-		foreach ( $notices as $notice ) {
-
-			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
-
-		}
-
-		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
-
-		return true;
-
-    } // display_admin_notices()
 
 	/**
 	 * Register the stylesheets for the Dashboard.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 	public function enqueue_styles() {
 
@@ -155,7 +161,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Register the JavaScript for the dashboard.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 	public function enqueue_scripts( $hook_suffix ) {
 
@@ -165,9 +171,6 @@ class Payze_Simple_Payment_Form_Admin {
 
 		if ( 'payment' === $post_type || $screen->id === $hook_suffix ) {
 
-			//!!wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/' . $this->plugin_name . '-file-uploader.min.js', array( 'jquery' ), $this->version, true );
-			//!!wp_enqueue_script( $this->plugin_name . '-repeater', plugin_dir_url( __FILE__ ) . 'js/' . $this->plugin_name . '-repeater.min.js', array( 'jquery' ), $this->version, true );
-			//!!wp_enqueue_script( 'jquery-ui-datepicker' );
 
 			$localize['repeatertitle'] = __( 'File Name', 'payze-simple-payment-form' );
 
@@ -177,34 +180,6 @@ class Payze_Simple_Payment_Form_Admin {
 		}
 
 	} // enqueue_scripts()
-
-	/**
-	 * Creates a checkbox field
-	 *
-	 * @param 	array 		$args 			The arguments for the field
-	 * @return 	string 						The HTML field
-	 */
-	public function field_checkbox( $args ) {
-
-		$defaults['class'] 			= '';
-		$defaults['description'] 	= '';
-		$defaults['label'] 			= '';
-		$defaults['name'] 			= $this->plugin_name . '-options[' . $args['id'] . ']';
-		$defaults['value'] 			= 0;
-
-		apply_filters( $this->plugin_name . '-field-checkbox-options-defaults', $defaults );
-
-		$atts = wp_parse_args( $args, $defaults );
-
-		if ( ! empty( $this->options[$atts['id']] ) ) {
-
-			$atts['value'] = $this->options[$atts['id']];
-
-		}
-
-		include( plugin_dir_path( __FILE__ ) . 'partials/' . $this->plugin_name . '-admin-field-checkbox.php' );
-		return true;
-	}
 
 	/**
 	 * Creates a select field
@@ -302,45 +277,51 @@ class Payze_Simple_Payment_Form_Admin {
 
 	} // get_options_list()
 
-	/**
-	 * Adds links to the plugin links row
-	 *
-	 * @since 		1.0.0
-	 * @param 		array 		$links 		The current array of row links
-	 * @param 		string 		$file 		The name of the file
-	 * @return 		array 					The modified array of row links
-	 */
-	public function link_row( $links, $file ) {
+// --Commented out by Inspection START (15.06.2022, 18:02):
+//	/**
+//	 * Adds links to the plugin links row
+//	 *
+//	 * @since 		0.0.1
+//	 * @param 		array 		$links 		The current array of row links
+//	 * @param 		string 		$file 		The name of the file
+//	 * @return 		array 					The modified array of row links
+//	 */
+//	public function link_row( $links, $file ) {
+//
+//		if ( PAYZE_SIMPLE_PAYMENT_FORM_FILE === $file ) {
+//			//TODO: проверить, что ссылка ведёт куда надо
+//			$links[] = '<a href="https://bootandpencil.com/lobanov">Twitter</a>';
+//
+//		}
+//
+//		return $links;
+//
+//	} // link_row()
+// --Commented out by Inspection STOP (15.06.2022, 18:02)
 
-		if ( NOW_HIRING_FILE === $file ) {
-			//TODO: проверить, что ссылка ведёт куда надо
-			$links[] = '<a href="https://bootandpencil.com/lobanov">Twitter</a>';
 
-		}
+// --Commented out by Inspection START (15.06.2022, 18:02):
+//	/**
+//	 * Adds a link to the plugin settings page
+//	 *
+//	 * @since 		0.0.1
+//	 * @param 		array 		$links 		The current array of links
+//	 * @return 		array 					The modified array of links
+//	 */
+//	public function link_settings( $links ) {
+//
+//		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
+//
+//		return $links;
+//
+//	} // link_settings()
+// --Commented out by Inspection STOP (15.06.2022, 18:02)
 
-		return $links;
-
-	} // link_row()
-
-	/**
-	 * Adds a link to the plugin settings page
-	 *
-	 * @since 		1.0.0
-	 * @param 		array 		$links 		The current array of links
-	 * @return 		array 					The modified array of links
-	 */
-	public function link_settings( $links ) {
-
-		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
-
-		return $links;
-
-	} // link_settings()
 
 	/**
 	 * Creates a new custom post type
 	 *
-	 * @since 	1.0.0
+	 * @since 	0.0.1
 	 * @access 	public
 	 * @uses 	register_post_type()
 	 */
@@ -399,7 +380,7 @@ class Payze_Simple_Payment_Form_Admin {
 		$opts['labels']['parent_item_colon']			= esc_html__( "Parent $plural :", 'payze-simple-payment-form' );
 		$opts['labels']['search_items']					= esc_html__( "Search $plural", 'payze-simple-payment-form' );
 		$opts['labels']['singular_name']				= esc_html__( $single, 'payze-simple-payment-form' );
-		$opts['labels']['view_item']					= esc_html__( "View {$single}", 'payze-simple-payment-form' );
+		$opts['labels']['view_item']					= esc_html__( "View $single", 'payze-simple-payment-form' );
 
 		$opts['rewrite']['ep_mask']						= EP_PERMALINK;
 		$opts['rewrite']['feeds']						= FALSE;
@@ -416,7 +397,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Creates a new taxonomy for a custom post type
 	 *
-	 * @since 	1.0.0
+	 * @since 	0.0.1
 	 * @access 	public
 	 * @uses 	register_taxonomy()
 	 */
@@ -474,7 +455,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Creates the help page
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		void
 	 */
 	public function page_help() {
@@ -486,7 +467,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Creates the options page
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		void
 	 */
 	public function page_options() {
@@ -607,7 +588,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Registers plugin settings
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @return 		void
 	 */
 	public function register_settings() {
@@ -645,7 +626,7 @@ class Payze_Simple_Payment_Form_Admin {
 	 * Creates a settings section
 	 *
 	 * @return 		mixed                        The settings section
-	 *@since 		1.0.0
+	 *@since 		0.0.1
 	 */
 	public function section_settings() {
 
@@ -665,7 +646,7 @@ class Payze_Simple_Payment_Form_Admin {
 	/**
 	 * Validates saved options
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @param 		array 		$input 			array of submitted plugin options
 	 * @return 		array 						array of validated plugin options
 	 */

@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * settings
- * @since 		1.0.0
+ * @since 		0.0.1
  *
  * @package 	Payze_Simple_Payment_Form
  * @subpackage 	Payze_Simple_Payment_Form/public
@@ -25,7 +25,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * The plugin options.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$options    The plugin options.
 	 */
@@ -34,7 +34,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$plugin_name 		The ID of this plugin.
 	 */
@@ -43,7 +43,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @access 		private
 	 * @var 		string 			$version 			The current version of this plugin.
 	 */
@@ -52,7 +52,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 * @param 		string 			$Payze_Simple_Payment_Form 		The name of the plugin.
 	 * @param 		string 			$version 			The version of this plugin.
 	 */
@@ -68,7 +68,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 
 	//TODO: не удалять
@@ -81,7 +81,7 @@ class Payze_Simple_Payment_Form_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since 		1.0.0
+	 * @since 		0.0.1
 	 */
 	//TODO: не удалять
 	public function enqueue_scripts() {
@@ -168,7 +168,7 @@ class Payze_Simple_Payment_Form_Public {
 	 * @param 	string 		$template 		The name of the template
 	 * @return 	mixed 						The single template
 	 */
-	public function single_cpt_template( $template ) {
+/*	public function single_cpt_template( $template ) {
 
 		global $post;
 
@@ -182,7 +182,7 @@ class Payze_Simple_Payment_Form_Public {
 
 		return $return;
 
-	} // single_cpt_template()
+	} // single_cpt_template() */
 
 	/**
 	 * Sets the class variable $options

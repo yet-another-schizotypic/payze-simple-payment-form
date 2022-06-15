@@ -6,7 +6,7 @@
  * Enter text below to appear below the section title on the Settings page
  *
  * 
- * @since      1.0.0
+ * @since      0.0.1
  *
  * @package    Now Hiring
  * @subpackage Now Hiring/admin/partials
