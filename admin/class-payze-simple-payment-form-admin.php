@@ -84,96 +84,20 @@ class Payze_Simple_Payment_Form_Admin {
 	 */
 	public static function add_admin_notices() {
 
-		$notices 	= get_option( 'payze_simple_payment_form_deferred_admin_notices', array() );
-		$notices[] 	= array( 'class' => 'updated', 'notice' => esc_html__( 'Payze Simple Payment Form: Custom Activation Message', 'payze-simple-payment-form' ) );
-		$notices[] 	= array( 'class' => 'error', 'notice' => esc_html__( 'Payze Simple Payment Form: Problem Activation Message', 'payze-simple-payment-form' ) );
+		$notices   = get_option( 'payze_simple_payment_form_deferred_admin_notices', array() );
+		$notices[] = array( 'class'  => 'updated',
+		                    'notice' => esc_html__( 'Payze Simple Payment Form: Custom Activation Message', 'payze-simple-payment-form' )
+		);
+		$notices[] = array( 'class'  => 'error',
+		                    'notice' => esc_html__( 'Payze Simple Payment Form: Problem Activation Message', 'payze-simple-payment-form' )
+		);
 
 		apply_filters( 'payze_simple_payment_form_admin_notices', $notices );
 		update_option( 'payze_simple_payment_form_deferred_admin_notices', $notices );
 
 	} // add_admin_notices
 
-	/**
-	 * Manages any updates or upgrades needed before displaying notices.
-	 * Checks plugin version against version required for displaying
-	 * notices.
-	 */
-	public function admin_notices_init() {
-
-		$current_version = '1.0.0';
-
-		if ( $this->version !== $current_version ) {
-
-			// Do whatever upgrades needed here.
-
-			update_option('my_plugin_version', $current_version);
-
-			$this->add_notice();
-
-		}
-
-	} // admin_notices_init()
-
-	/**
-	 * Displays admin notices
-	 *
-	 * @return 	string 			Admin notices
-	 */
-	public function display_admin_notices() {
-
-		$notices = get_option( 'payze_simple_payment_form_deferred_admin_notices' );
-
-		if ( empty( $notices ) ) { return; }
-
-		foreach ( $notices as $notice ) {
-
-			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
-
-		}
-
-		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
-
-	} // display_admin_notices()
-
-	/**
-	 * Adds links to the plugin links row
-	 *
-	 * @since 		1.0.0
-	 * @param 		array 		$links 		The current array of row links
-	 * @param 		string 		$file 		The name of the file
-	 * @return 		array 					The modified array of row links
-	 */
-	public function link_row( $links, $file ) {
-
-		if ( PAYZE_SIMPLE_PAYMENT_FORM_FILE === $file ) {
-
-			$links[] = '<a href="http://bootandpencil.com/lobanov">Twitter</a>';
-
-		}
-
-		return $links;
-
-	} // link_row()
-
-
-
-	/**
-	 * Adds a link to the plugin settings page
-	 *
-	 * @since 		1.0.0
-	 * @param 		array 		$links 		The current array of links
-	 * @return 		array 					The modified array of links
-	 */
-	public function link_settings( $links ) {
-
-		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=pspf_payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
-
-		return $links;
-
-	}
-
-
-	/**
+		/**
 	 * Creates a new custom post type
 	 * @link       http://slushman.com
 	 * @since    0.0.1
@@ -244,6 +168,87 @@ class Payze_Simple_Payment_Form_Admin {
 		$opts = apply_filters( 'payze-simple-payment-form-options', $opts );
 
 		register_post_type( strtolower( $cpt_name ), $opts );
+
+	} // admin_notices_init()
+
+	/**
+	 * Manages any updates or upgrades needed before displaying notices.
+	 * Checks plugin version against version required for displaying
+	 * notices.
+	 */
+	public function admin_notices_init() {
+
+		$current_version = '1.0.0';
+
+		if ( $this->version !== $current_version ) {
+
+			// Do whatever upgrades needed here.
+
+			update_option( 'my_plugin_version', $current_version );
+
+			$this->add_notice();
+
+		}
+
+	} // display_admin_notices()
+
+	/**
+	 * Displays admin notices
+	 *
+	 * @return    string            Admin notices
+	 */
+	public function display_admin_notices() {
+
+		$notices = get_option( 'payze_simple_payment_form_deferred_admin_notices' );
+
+		if ( empty( $notices ) ) {
+			return;
+		}
+
+		foreach ( $notices as $notice ) {
+
+			echo '<div class="' . esc_attr( $notice['class'] ) . '"><p>' . $notice['notice'] . '</p></div>';
+
+		}
+
+		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
+
+	} // link_row()
+
+/**
+	 * Adds links to the plugin links row
+	 *
+	 * @param array $links The current array of row links
+	 * @param string $file The name of the file
+	 *
+	 * @return        array                    The modified array of row links
+	 * @since        1.0.0
+	 */
+	public function link_row( $links, $file ) {
+
+		if ( PAYZE_SIMPLE_PAYMENT_FORM_FILE === $file ) {
+
+			$links[] = '<a href="http://bootandpencil.com/lobanov">Twitter</a>';
+
+		}
+
+		return $links;
+
+	}
+
+	/**
+	 * Adds a link to the plugin settings page
+	 *
+	 * @param array $links The current array of links
+	 *
+	 * @return        array                    The modified array of links
+	 * @since        1.0.0
+	 */
+	public function link_settings( $links ) {
+
+		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=pspf_payment&page=' . $this->plugin_name . '-settings' ) ), esc_html__( 'Settings', 'payze-simple-payment-form' ) );
+
+		return $links;
 
 	}
 

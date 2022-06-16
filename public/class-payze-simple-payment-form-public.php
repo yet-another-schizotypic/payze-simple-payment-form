@@ -101,10 +101,10 @@ class Payze_Simple_Payment_Form_Public {
 	 */
 	public function pspf_process_payze_payment_form_actions( $atts = array() ) {
 
-		if (!isset($this->options) or ($this->options == null)){
-			wp_die("<h1>Please set up correct DEMO / PRODUCTION credentials</h1><br>
+		if ( ! isset( $this->options ) or ( $this->options == null ) ) {
+			wp_die( "<h1>Please set up correct DEMO / PRODUCTION credentials</h1><br>
 					<h2>Payze simple payment plugin must have correct credentials to work.</h2><br/><br/>	 
-					Go to Dasboard -> Paymets -> Settings");
+					Go to Dasboard -> Paymets -> Settings" );
 		}
 
 		if ( isset( $_POST['submitted'] ) ) {
