@@ -181,7 +181,7 @@ class Payze_Simple_Payment_Form {
 		return $this->plugin_name;
 	}
 
-		/**
+	/**
 	 * Retrieve the version number of the plugin.
 	 *
 	 * @return        string                    The version number of the plugin.
@@ -206,7 +206,7 @@ class Payze_Simple_Payment_Form {
 
 		$plugin_public = new Payze_Simple_Payment_Form_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles', $this->get_version(), true );
-		$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
+		//	$this->loader->add_filter( 'single_template', $plugin_public, 'single_cpt_template' );
 		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );
 
 		/**
@@ -220,7 +220,7 @@ class Payze_Simple_Payment_Form {
 
 	}
 
-/**
+	/**
 	 * Register all the hooks related to the templates.
 	 *
 	 * @since    0.0.1

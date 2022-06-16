@@ -34,6 +34,15 @@
 class Payze_Simple_Payment_Form_Public {
 
 	/**
+	 * The plugin options.
+	 *
+	 * @since        1.0.0
+	 * @access        private
+	 * @var        string $options The plugin options.
+	 */
+	private $options;
+
+	/**
 	 * The ID of this plugin.
 	 *
 	 * @since        0.0.1
@@ -91,6 +100,12 @@ class Payze_Simple_Payment_Form_Public {
 	 * @return    mixed    $output        Output of the buffer
 	 */
 	public function pspf_process_payze_payment_form_actions( $atts = array() ) {
+
+		if (!isset($this->options) or ($this->options == null)){
+			wp_die("<h1>Please set up correct DEMO / PRODUCTION credentials</h1><br>
+					<h2>Payze simple payment plugin must have correct credentials to work.</h2><br/><br/>	 
+					Go to Dasboard -> Paymets -> Settings");
+		}
 
 		if ( isset( $_POST['submitted'] ) ) {
 			$payze_api = new Payze_V1_API( $this->options );
