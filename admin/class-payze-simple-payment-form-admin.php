@@ -213,6 +213,8 @@ class Payze_Simple_Payment_Form_Admin {
 
 		delete_option( 'payze_simple_payment_form_deferred_admin_notices' );
 
+		return true;
+
 	} // link_row()
 
 /**
