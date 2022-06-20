@@ -29,7 +29,7 @@
  * @wordpress-plugin
  * Plugin Name:        Payze Simple Payment Form
  * Plugin URI:            https://bootandpencil.com/blog/payze-simple-payment-form/
- * Description:        A simple way to manage job opening posts
+ * Description:        A simple plugin to accept payments via Payze.io
  * Version:            0.0.1
  * Author:                Vitalii Lobanov
  * Author URI:            https://bootandpencil.com/lobanov
