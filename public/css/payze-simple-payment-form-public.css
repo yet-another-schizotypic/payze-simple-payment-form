@@ -40,6 +40,7 @@ input.pspf-input-nickname, input.pspf-input-amount-to-pay {
     background-repeat: no-repeat, repeat;
 
     /*Text*/
+
     font-family: Roboto, sans-serif;
     font-size: 16px;
     font-stretch: 100%;
@@ -49,14 +50,17 @@ input.pspf-input-nickname, input.pspf-input-amount-to-pay {
     font-variant-ligatures: normal;
     font-variant-numeric: normal;
     font-weight: bold;
+
     /*Appearance*/
-    color: rgb(16, 20, 35);
-    background-color: rgb(238, 238, 238);
-    border-color: rgb(136, 13, 30);;
-    border-style: solid;
-    border-width: 2px;
+    border: 2px !important;
+    color: rgb(16, 20, 35) !important;
+    background-color: rgb(239, 238, 245) !important;
+    border-color: rgb(136, 13, 30) !important;
+    border-style: solid !important;
+    border-width: 2px !important;
     cursor: text;
     -webkit-border-image: none;
+
     /*Other*/
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -84,9 +88,9 @@ input.pspf-input-submit-button {
     font-variant-numeric: normal;
 
     /*Appearance*/
-    color: rgb(16, 20, 35);
-    background-color: rgb(238, 238, 238);
-    border-color: rgb(136, 13, 30);;
+    color: rgb(16, 20, 35) !important;
+    background-color: rgb(239, 238, 245) !important;
+    border-color: rgb(136, 13, 30) !important;
     border-style: solid;
     border-width: 2px;
     cursor: pointer;
@@ -108,12 +112,12 @@ form.pspf-custom-payment-form {
     /*Layout*/
     box-sizing: border-box;
     display: block;
-
+    text-align: center !important;
 
     max-width: 100%;
     min-width: 160px;
     padding: 10px 22px 8px 13px;
-    width: 643px;
+    
     /*Text*/
     font-family: "Source Sans Pro", sans-serif;
     font-size: 16px;
@@ -144,6 +148,7 @@ form.pspf-custom-payment-form {
 
 div.pspf-div-payment-systems-logos {
     text-align: right;
+    margin: 2%;
 }
 
 img.pspf-img-payment-system-logo {

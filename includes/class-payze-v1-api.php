@@ -313,7 +313,7 @@ class Payze_V1_API {
 			add_post_meta( $payment_record_post_id, 'payze_status', $transaction_status, true );
 			add_post_meta( $payment_record_post_id, 'payze_rejection_reason', $rejection_reason, true );
 
-			$this->show_message_redirect_and_die( $status, 'payment status is ' . $transaction_status, $rejection_reason ?? "Thank you for your payment!" );
+			$this->show_message_redirect_and_die( $status, 'payment status is ' . $transaction_status, ($rejection_reason !== "") ? $rejection_reason : "Thank you for your payment!" );
 
 		} else {
 			$this->show_message_redirect_and_die( 'Failure', "Something went wrong. Please try again or contact technical support.", "Transaction ID is $transaction_id" );
